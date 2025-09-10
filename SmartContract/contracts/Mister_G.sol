@@ -234,11 +234,10 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
      string private constant _Providence = "Providence"; 
 
    /* --------------------------------------------------------------------------------------------- */
-
         /* --------------------------- View Exam Centers ----------------------------------------- */
         event View_US_North_East_Emitted(string indexed _US_North_East_Msg);
 
-            function View_US_North_East(string memory _state_name) external view returns(string[] memory) {
+            function View_US_North_East(string memory _state_name) external  returns(string[] memory) {
 
              if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -252,9 +251,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                 revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
               }
               
-              if(keccak256(abi.encode(_New_York)) == keccak256(abi.encode(_state_name)) {
+             if (keccak256(abi.encode(_New_York)) == keccak256(abi.encode(_state_name))) {
                 return  _US_north_east._New_York_City; 
-              } else if(keccak256(abi.encode(_Boston)) == keccak256(abi.encode(_state_name)) {
+              } else if(keccak256(abi.encode(_Boston)) == keccak256(abi.encode(_state_name))) {
                 return _US_north_east._Boston_City; 
               } else if(keccak256(abi.encode(_Philadelphia)) == keccak256(abi.encode(_state_name))) {
                  return _US_north_east._Philadelphia_City; 
@@ -270,14 +269,17 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                    return _US_north_east._Albany_City;  
               } else if(keccak256(abi.encode(_Hartford)) == keccak256(abi.encode(_state_name))) { 
                    return _US_north_east._Hartford_City; 
-               } else (keccak256(abi.encode(_Providence)) == keccak256(abi.encode(_state_name))) {
+               } else if (keccak256(abi.encode(_Providence)) == keccak256(abi.encode(_state_name))) {
                   return _US_north_east._Providence_City; 
-               } 
+               }         
 
                emit View_US_North_East_Emitted("Your search has been received this is the list of the locations of the exam centers in your state!");
 
             }
 
+         
+
+          
             string private constant _Atlanta = "Atlanta"; 
             string private constant _Miami = "Miami"; 
             string private constant _Orlando = "Orlando"; 
@@ -296,7 +298,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
 
              event View_US_South_Emitted(string indexed _US_South_Msg);
 
-             function View_US_South(string memory _state_name) external view returns(string[] memory) {
+             function View_US_South(string memory _state_name) external  returns(string[] memory) {
 
              if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -310,9 +312,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                 revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
               }
               
-              if(keccak256(abi.encode(_Atlanta)) == keccak256(abi.encode(_state_name)) {
+              if(keccak256(abi.encode(_Atlanta)) == keccak256(abi.encode(_state_name))) {
                 return  _US_south._Atlanta_City; 
-              } else if(keccak256(abi.encode(_Miami)) == keccak256(abi.encode(_state_name)) {
+              } else if(keccak256(abi.encode(_Miami)) == keccak256(abi.encode(_state_name))) {
                 return _US_south._Miami_City; 
               } else if(keccak256(abi.encode(_Orlando)) == keccak256(abi.encode(_state_name))) {
                  return _US_south._Orlando_City; 
@@ -360,7 +362,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             
             event View_US_Midwest_Emitted(string indexed _US_Midwest_Msg);
 
-             function View_US_Midwest(string memory _state_name) external view returns(string[] memory) {
+             function View_US_Midwest(string memory _state_name) external  returns(string[] memory) {
 
              if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -374,9 +376,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                 revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
               }
               
-              if(keccak256(abi.encode(_Chicago)) == keccak256(abi.encode(_state_name)) {
+              if(keccak256(abi.encode(_Chicago)) == keccak256(abi.encode(_state_name))) {
                 return  _US_midwest._Chicago_City; 
-              } else if(keccak256(abi.encode(_Detroit)) == keccak256(abi.encode(_state_name)) {
+              } else if(keccak256(abi.encode(_Detroit)) == keccak256(abi.encode(_state_name))) {
                 return _US_midwest._Detroit_City; 
               }  else if(keccak256(abi.encode(_Columbus)) == keccak256(abi.encode(_state_name))) {
                  return _US_midwest._Columbus_City; 
@@ -392,7 +394,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                    return _US_midwest._Kansas_City; 
                } else if(keccak256(abi.encode(_Omaha)) == keccak256(abi.encode(_state_name))) {
                   return _US_midwest._Omaha_City; 
-               } else (keccak256(abi.encode(_Wichita)) == keccak256(abi.encode(_state_name))) {
+               } else if (keccak256(abi.encode(_Wichita)) == keccak256(abi.encode(_state_name))) {
                   return _US_midwest._Wichita_City; 
                }
 
@@ -414,7 +416,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
       
       event View_US_West_Emitted(string indexed _US_West_Msg);
 
-      function View_US_West(string memory _state_name) external view returns(string[] memory) {
+      function View_US_West(string memory _state_name) external  returns(string[] memory) {
 
              if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -428,9 +430,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                 revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
               }
               
-              if(keccak256(abi.encode(_Los_Angeles)) == keccak256(abi.encode(_state_name)) {
+              if(keccak256(abi.encode(_Los_Angeles)) == keccak256(abi.encode(_state_name))) {
                 return  _US_west._Los_Angeles_City; 
-              } else if(keccak256(abi.encode(_San_Francisco)) == keccak256(abi.encode(_state_name)) {
+              } else if(keccak256(abi.encode(_San_Francisco)) == keccak256(abi.encode(_state_name))) {
                 return _US_west._San_Francisco_City; 
               }  else if(keccak256(abi.encode(_San_Diego)) == keccak256(abi.encode(_state_name))) {
                  return _US_west._San_Diego_City; 
@@ -450,7 +452,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                   return _US_west._Salt_Lake_City; 
                } else if(keccak256(abi.encode(_Albuquerque)) == keccak256(abi.encode(_state_name))) {
                   return _US_west._Albuquerque_City;
-               } else (keccak256(abi.encode(_Honolulu)) == keccak256(abi.encode(_state_name))) { 
+               } else if(keccak256(abi.encode(_Honolulu)) == keccak256(abi.encode(_state_name))) { 
                   return _US_west._Honolulu;
                } 
 
@@ -471,7 +473,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
          
          event View_Canada_Hubs_Emitted(string indexed _Canada_Hubs_Msg);
 
-            function View_Canada_Hubs(string memory _state_name) external view returns(string[] memory) {
+            function View_Canada_Hubs(string memory _state_name) external  returns(string[] memory) {
 
              if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -485,27 +487,27 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                 revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
               }
               
-              if(keccak256(abi.encode(_Toronto)) == keccak256(abi.encode(_state_name)) {
+              if(keccak256(abi.encode(_Toronto)) == keccak256(abi.encode(_state_name))) {
                 return  _CA_hubs._Toronto_City; 
-              } else if(keccak256(abi.encode(_Vancouver)) == keccak256(abi.encode(_state_name)) {
+              } else if(keccak256(abi.encode(_Vancouver)) == keccak256(abi.encode(_state_name))) {
                 return _CA_hubs._Vancouver_City; 
               }  else if(keccak256(abi.encode(_Montreal)) == keccak256(abi.encode(_state_name))) {
-                 return _CA_hubs._Montreal; 
+                 return _CA_hubs._Montreal_City; 
               } else if(keccak256(abi.encode(_Calgary)) == keccak256(abi.encode(_state_name))) { 
                  return  _CA_hubs._Calgary_City;
               } else if(keccak256(abi.encode(_Edmonton)) == keccak256(abi.encode(_state_name))) { 
                  return _CA_hubs._Edmonton_City; 
               } else if(keccak256(abi.encode(_Ottawa)) == keccak256(abi.encode(_state_name))) { 
-                  return _CA_hubs._Ottawa; 
+                  return _CA_hubs._Ottawa_City; 
               } else if(keccak256(abi.encode(_Winnipeg)) == keccak256(abi.encode(_state_name))) { 
-                   return _CA_hubs._Winnipeg;  
+                   return _CA_hubs._Winnipeg_City;  
               } else if(keccak256(abi.encode(_Halifax)) == keccak256(abi.encode(_state_name))) { 
-                   return _CA_hubs._Halifax; 
+                   return _CA_hubs._Halifax_City; 
                } else if(keccak256(abi.encode(_Quebec)) == keccak256(abi.encode(_state_name))) {
-                  return _CA_hubs._Quebec; 
+                  return _CA_hubs._Quebec_City; 
                } else if(keccak256(abi.encode(_Mississauga)) == keccak256(abi.encode(_state_name))) {
-                  return _CA_hubs._Mississauga; 
-               } else (keccak256(abi.encode(_Victoria)) == keccak256(abi.encode(_state_name))) {
+                  return _CA_hubs._Mississauga_City; 
+               } else if(keccak256(abi.encode(_Victoria)) == keccak256(abi.encode(_state_name))) {
                   return _CA_hubs._Victoria_City;
                } 
 
@@ -646,7 +648,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
         
         event AccessDigital_Textbook_Emitted(string indexed _access_msg, bool indexed _state);
 
-        function AccessDigital_Textbook() external view returns(Digital_TextBook memory){
+        function AccessDigital_Textbook() external  returns(Digital_TextBook memory){
            if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             }
@@ -672,7 +674,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
 
          event AccessDigital_Video_Tut_Emitted(string indexed _access_msg, bool indexed _state);
 
-        function AccessDigital_Video_Tut() external view returns(Digital_Videos_Tut memory){
+        function AccessDigital_Video_Tut() external returns(Digital_Videos_Tut memory){
            if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             }
@@ -752,14 +754,15 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             _store_exam_schedule._date =  _date;
             _store_exam_schedule._location = _location; 
             _store_exam_schedule._month = _month; 
-            _store_exam_schedule.year = _year; 
+            _store_exam_schedule._year = _year; 
          
          emit Store_Schedule_Exam_Date_Emitted(_date, _month, _year);
          return true;  
        }
       
-      event View_Exam_Schedule_Emitted(string indexed _viewed_Schedule); 
-       function View_Exam_Schedule() external view returns(uint256, uint256, string memory) {  
+      event View_Exam_Schedule_Emitted(string indexed _viewed_Schedule);
+
+       function View_Exam_Schedule() external  returns(uint256, uint256, string memory) {  
           if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             }
@@ -780,7 +783,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               return(_view_stored_data._date, _view_stored_data._month, _view_stored_data._location);
        }
         
-        event Cancel_Scheduled_Exam_Date(string indexed _Cancel_Exam_Schedule_Msg);
+        event Cancel_Scheduled_Exam_Date_Emitted(string indexed _Cancel_Exam_Schedule_Msg);
 
        function Cancel_Scheduled_Exam_Date() external returns(bool) { 
           if(address(0) == msg.sender) { 
@@ -801,16 +804,16 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               reset_stored_data._year = 0; 
               reset_stored_data._location = ""; 
               
-            emit Cancel_Scheduled_Exam_Date("You have successful reset the Exam Schedule Data's State");
+            emit Cancel_Scheduled_Exam_Date_Emitted("You have successful reset the Exam Schedule Data's State");
             return true; 
        }
-
+    
         uint256 private _recruit_token_count = 0; 
                   
         error Mister_G__You_Have_To_Complete_pre_life_insurance(address _caller, string _No_pre_license);
         error Mister_G__You_Have_Claimed_Recruit_NFT(address _caller, bool _claimed_recruit_nft); 
-
         event  Recruit_NFT_Emitted(uint256 indexed tokenId, address indexed _caller, string _claimed_nft);
+      
 
         function Recruit_NFT() external returns(bool) {
 
@@ -827,7 +830,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
          }
          if(_routing_recruit[msg.sender]._claimed_recruit_nft == true) {
-              revert Mister_G__You_Have_Claimed_Recruit_NFT(msg.sender, _claimed_recruit_nft); 
+              revert Mister_G__You_Have_Claimed_Recruit_NFT(msg.sender, _routing_recruit[msg.sender]._claimed_recruit_nft); 
          }
 
            _recruit_token_count++; 
@@ -869,7 +872,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
 
-        for (uint256 i = index; i < _training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos.length - 1, i++) {
+for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos.length -1; i++) {
          _training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos[i] = _training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos[i + 1]; 
         }
       
@@ -883,7 +886,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
 
-        for (uint256 i = index; i < _training_rep_state_var._learn_to_sell_insurance_mutual_funds_books.length - 1, i++) {
+        for (uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mutual_funds_books.length - 1; i++) {
          _training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos[i] = _training_rep_state_var._learn_to_sell_insurance_mutual_funds_books[i + 1]; 
         }
       
@@ -934,7 +937,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
     mapping(address => uint256) private _users_rate_volume; 
 
     event Rated(address indexed _caller, uint256 timestamp, uint256 newTotal);
-    error Wait_For_Time_To_Compelete(string indexed _wait_msg);
+    error Wait_For_Time_To_Compelete(string _wait_msg);
     address[] private _users_who_rated; 
 
     function Rate() external returns(string memory) {         
@@ -1111,6 +1114,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
      }
 
      address[] private _biennial_requested_addresses;
+     error Mister_G__You_Have_Complete_pre_life_insurance(address  _caller, string _compeleted_msg);
 
      function Request_Biennial_Invitation() external returns(string memory ) {
          if(address(0) == msg.sender) { 
@@ -1123,7 +1127,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
          }
          if(_users_rate_volume[msg.sender] < 300) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
+             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
         }
          
          _biennial_requested_addresses.push(msg.sender);
@@ -1151,7 +1155,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
          }
          if(_users_rate_volume[msg.sender] < 250) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
+             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
         }
          
          _Annual_Leadership_requested_addresses.push(msg.sender);
@@ -1179,7 +1183,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
          }
          if(_users_rate_volume[msg.sender] < 200) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
+             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
         }
          
          _African_American_Leadership_requested_addresses.push(msg.sender);
@@ -1208,7 +1212,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
          }
          if(_users_rate_volume[msg.sender] < 150) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
+             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
         }
          
          _Recognition_Trips_Incentive_Events_requested_addresses.push(msg.sender);
@@ -1257,9 +1261,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
        }
         
         struct Primerica_Violations_Report_Data { 
-          string[] private _event_description;
-          string[] private _guilty_informations; 
-          address[] private _reporter_address; 
+          string[]  _event_description;
+          string[]  _guilty_informations; 
+          address[] _reporter_address; 
         }
           mapping(address => Primerica_Violations_Report_Data) private routing_primerica_violations_report_data;
         
@@ -1311,9 +1315,23 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
          return("Thanks for being than a contributor in the developnment of Primerica Company, Primerica appreciates your ideas"); 
        }
 
-       function View_Feed_Primerica_Bussiness_development_Ideas()  returns () {
+       function View_Feed_Primerica_Bussiness_development_Ideas() public Mister_G_Only(msg.sender) returns(string[] memory) {
+          if(address(0) == msg.sender) { 
+               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
          
+         return  _bussiness_developnment_ideas._ideas_storage; 
        }
+      
+       function Clear_Feed_Primerica_Bussiness_development_Ideas() public Mister_G_Only(msg.sender) returns(bool) { 
+          if(address(0) == msg.sender) { 
+               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+           delete  _bussiness_developnment_ideas._ideas_storage; 
+
+           return true; 
+       }
+              
       /* ------------------------------------------------------------------------------------ */ 
    /* ---------------------------------------------------------------------------------------------- */
    /* ---------------------------------------------------------------------------------------------- */  

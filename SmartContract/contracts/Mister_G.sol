@@ -26,6 +26,18 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
         uint256 _agent_id;
         bool _agent_banned;
         bool _registered;
+        string[] sales_premium_data;
+         bool spare_time; 
+         bool agent_part_time; 
+         bool agent_full_time;
+         bool senior_representative; 
+         bool district_leader; 
+         bool division_leader; 
+         bool regional_leader; 
+         bool regional_vice_president; 
+         bool two_direct_district_leaders; 
+         bool four_direct_district_leaders;
+         bool six_direct_district_leaders; 
     }
   uint256 private _agent_identication_Count;
   uint256 private _your_agent_id;  
@@ -92,18 +104,6 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
      bool  _Series_Twenty_Six_Licensed_Senior_VP_Task;
     }
     mapping (address => Mister_G_Tier_Ten) private _routing_tier_ten;
-  
-  string private _NFT_Rookie_Agent;
-  string private _NFT_Debt_Free_Advocate;
-  string private _NFT_First_Person_sponsored;
-  string private _NFT_Series_Six_License;
-  string private _NFT_Top_Earner_Q_Three; 
-  string private _NFT_Team_Builder;
-  string private _NFT_Series_Six_Three_License; 
-  string private _NFT_Series_Seven;
-  string private _NFT_Series_Six_Five_Six_Six; 
-  string private _NFT_Series_Twenty_Six; 
-  string private _Recruit_NFT; 
 
     struct US_North_East {
       string[] _New_York_City; 
@@ -179,42 +179,52 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
       string[] _Victoria_City; 
     }
      
+     struct PRIMERICA_NFTS { 
+      string  _nft_diagram_one; 
+      string  _nft_diagram_two; 
+      string  _nft_diagram_three; 
+      string  _nft_diagram_four; 
+      string  _nft_diagram_five; 
+      string  _nft_diagram_six; 
+      string  _nft_diagram_seven; 
+      string  _nft_diagram_eight; 
+      string  _nft_diagram_nine;
+      string  _nft_diagram_ten;
+      string  _recruit_nft;  
+     }
+     
+     struct StakeHolders { 
+    address  _kayne_anderson_rudnick; 
+    address  _vanguard_group;
+    address  _blackrock; 
+    address  _fmr_fidelity; 
+    address  _bamco_baron_capital; 
+    address  _burgundy_asset_management; 
+    address  _state_street; 
+    address  _brave_warrior_advisors;
+     }
+
      US_North_East private _US_north_east; 
      US_South private _US_south; 
      US_Midwest private _US_midwest; 
      US_West  private _US_west; 
      Canada_Hubs private _CA_hubs; 
+    PRIMERICA_NFTS private _PRI_NFTs;
+    StakeHolders private _Stake_Holders; 
+    
 
     constructor(
-      string memory _nft_diagram_one, 
-      string memory _nft_diagram_two, 
-      string memory _nft_diagram_three, 
-      string memory _nft_diagram_four, 
-      string memory _nft_diagram_five, 
-      string memory _nft_diagram_six, 
-      string memory _nft_diagram_seven, 
-      string memory _nft_diagram_eight, 
-      string memory _nft_diagram_nine,
-      string memory _nft_diagram_ten,
-      string memory _recruit_nft,  
+      PRIMERICA_NFTS memory _primerica_nfts, 
       US_North_East memory _us_north_east,
       US_South memory _us_south, 
       US_Midwest memory _us_midwest,
       US_West memory _us_west, 
-      Canada_Hubs memory _canada_hubs
+      Canada_Hubs memory _canada_hubs, 
+     StakeHolders memory _stakeholders
     ) ERC721("Mister_G_Award_Coin", "M_G_A_C"){
+      _Stake_Holders = _stakeholders;
       contract_owner = msg.sender; 
-      _NFT_Rookie_Agent = _nft_diagram_one;
-      _NFT_Debt_Free_Advocate = _nft_diagram_two; 
-      _NFT_First_Person_sponsored = _nft_diagram_three; 
-      _NFT_Series_Six_License = _nft_diagram_four; 
-      _NFT_Top_Earner_Q_Three = _nft_diagram_five; 
-      _NFT_Team_Builder = _nft_diagram_six; 
-      _NFT_Series_Six_Three_License = _nft_diagram_seven; 
-      _NFT_Series_Seven = _nft_diagram_eight; 
-      _NFT_Series_Six_Five_Six_Six = _nft_diagram_nine;
-      _NFT_Series_Twenty_Six =  _nft_diagram_ten;
-      _Recruit_NFT = _recruit_nft; 
+       _PRI_NFTs = _primerica_nfts; 
       _US_north_east = _us_north_east;
       _US_south =  _us_south;
       _US_midwest =  _us_midwest; 
@@ -534,7 +544,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
 
          uint256 private  recruit_count = 0;
          uint256 private _Recruit_ID; 
-         uint256 private sign_up_fee = 0.0020 ether; 
+         
         
          error Mister_G__Your_Already_An_Agent(address _caller); 
          error Mister_G__Insufficient_Funds(address _caller, uint256 _amount);
@@ -553,9 +563,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
           mapping (address => YourSignUp_Data) private _routing_yoursignup_data;
           uint256 private signed_up_recruits; 
           
-         event Primerica_Book_Sign_Up_Emitted(address indexed _caller, uint256 indexed _Sign_Up_amount, uint256 indexed block_timestamp); 
+         event Primerica_Book_Sign_Up_Emitted(address indexed _caller, uint256 indexed block_timestamp); 
 
-         function Primerica_Book_Sign_Up(YourSignUp_Data memory _data) external payable returns(string memory _signed)  {
+         function Primerica_Book_Sign_Up(YourSignUp_Data memory _data) external returns(string memory _signed)  {
               if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
               }
@@ -565,9 +575,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               if(_routing_agent[msg.sender]._registered == true) { 
                 revert Mister_G__Your_Already_An_Agent(msg.sender); 
               }
-              if(msg.value < sign_up_fee) { 
-                revert Mister_G__Insufficient_Funds(msg.sender, msg.value); 
-              }
+            
               
               recruit_count++; 
 
@@ -581,7 +589,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
               _recruited._material_access = true; 
               _recruited._recruit_id = recruit_count;
             
-              emit  Primerica_Book_Sign_Up_Emitted(msg.sender, msg.value, block.timestamp);
+              emit  Primerica_Book_Sign_Up_Emitted(msg.sender,  block.timestamp);
               _signed = "Thanks for signing up with Primerica you have begin your path of great wealth."; 
 
               return(_signed);
@@ -840,9 +848,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             _recruit_var._claimed_recruit_nft  = true; 
 
             _safeMint(msg.sender, new_recruit_token_count);
-            _setTokenURI(new_recruit_token_count, _Recruit_NFT);  
+            _setTokenURI(new_recruit_token_count, _PRI_NFTs._recruit_nft);  
 
-            emit Recruit_NFT_Emitted(new_recruit_token_count, msg.sender, _Recruit_NFT);
+            emit Recruit_NFT_Emitted(new_recruit_token_count, msg.sender, _PRI_NFTs._recruit_nft);
            
            return true; 
         }
@@ -895,7 +903,7 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
        return("Rep Training Digital book successfully removed!"); 
        }
 
-     function View_Training_Recruited_Rep_Video_data() external returns(string[] memory) {
+     function View_Training_Recruited_Rep_Video_data() external view returns(string[] memory) {
 
         if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -910,7 +918,7 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         return(_training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos);
      }
 
-      function View_Training_Recruited_Rep_Book_data() external returns(string[] memory) {
+      function View_Training_Recruited_Rep_Book_data() external view returns(string[] memory) {
 
         if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
@@ -990,7 +998,7 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
       return _INTERVAL - elapsed; 
     }
    
-   function View_Users_Rating_Volume(address _primerica_user) public  returns(uint256) {
+   function View_Users_Rating_Volume(address _primerica_user) public view returns(uint256) {
         if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
@@ -1228,7 +1236,7 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
             return _Recognition_Trips_Incentive_Events_requested_addresses;
       }
 
-      function Access_To_Live_PRI_STOCK_DATA() external returns(bool) {
+      function Access_To_Live_PRI_STOCK_DATA() external view returns(bool) {
            if(address(0) == msg.sender) { 
                   revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             }
@@ -1315,34 +1323,622 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
          return("Thanks for being than a contributor in the developnment of Primerica Company, Primerica appreciates your ideas"); 
        }
 
-       function View_Feed_Primerica_Bussiness_development_Ideas() public Mister_G_Only(msg.sender) returns(string[] memory) {
+   function View_Feed_Primerica_Bussiness_development_Ideas() public view Mister_G_Only(msg.sender) returns(string[] memory) {
           if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
            }
          
-         return  _bussiness_developnment_ideas._ideas_storage; 
+         return  (_bussiness_developnment_ideas._ideas_storage); 
        }
       
        function Clear_Feed_Primerica_Bussiness_development_Ideas() public Mister_G_Only(msg.sender) returns(bool) { 
           if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
            }
            delete  _bussiness_developnment_ideas._ideas_storage; 
 
            return true; 
        }
-              
-      /* ------------------------------------------------------------------------------------ */ 
+
+      struct Kayne_Anderson_Rudnick {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 _kayne_anderson_rudnick_ID;  
+      }
+      mapping(address => Kayne_Anderson_Rudnick) private _routing_kayne_anderson_rudnick;
+
+       error Only_Stakeholders_(address _caller, string _Not_stakeholder_msg);
+       
+       function Register_Kayne_Anderson_Rudnick() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._kayne_anderson_rudnick) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         Kayne_Anderson_Rudnick storage _kayne_var  = _routing_kayne_anderson_rudnick[msg.sender]; 
+           _kayne_var._company_address = msg.sender; 
+           _kayne_var._registered = true;
+           _kayne_var._kayne_anderson_rudnick_ID = 1122; 
+
+           return("Glad to have you on the Primerica utility software _kayne_anderson_rudnick");
+       }
+
+      function Primerica_Major_stockholder_Kayne_Anderson_Rudnick_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._kayne_anderson_rudnick) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+        Kayne_Anderson_Rudnick storage _kayne_var  = _routing_kayne_anderson_rudnick[msg.sender]; 
+        _kayne_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+  
+     struct Vanguard_Group {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 _vanguard_group_ID;  
+      }
+      mapping(address => Vanguard_Group) private routing_vanguard_group;
+
+       
+       
+       function Register_Vanguard_Group() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._vanguard_group) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         Vanguard_Group storage _vanguard_var  = routing_vanguard_group[msg.sender]; 
+           _vanguard_var._company_address = msg.sender; 
+           _vanguard_var._registered = true;
+           _vanguard_var._vanguard_group_ID = 3344; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_Vanguard_Group_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._vanguard_group) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+           Vanguard_Group storage _vanguard_var  = routing_vanguard_group[msg.sender];  
+        _vanguard_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+   
+     struct BlackRock {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 _blackrock_group_ID;  
+      }
+      mapping(address => BlackRock) private routing_black_rock;
+
+       
+       
+       function Register_BlackRock() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._blackrock) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         BlackRock storage _blackrock_var  = routing_black_rock[msg.sender]; 
+           _blackrock_var._company_address = msg.sender; 
+           _blackrock_var._registered = true;
+           _blackrock_var._blackrock_group_ID = 4455; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_BlackRock_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._blackrock) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+           BlackRock storage _blackrock_var  = routing_black_rock[msg.sender];  
+        _blackrock_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+         
+        struct FMR_Fidelity {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 fmr_fidelity_ID;  
+      }
+      mapping(address => FMR_Fidelity) private _routing_fmr_fidelity;
+
+       
+       
+       function Register_FMR_Fidelity() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._fmr_fidelity) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         FMR_Fidelity storage _fmr_fidelity_var  = _routing_fmr_fidelity[msg.sender]; 
+           _fmr_fidelity_var._company_address = msg.sender; 
+           _fmr_fidelity_var._registered = true;
+           _fmr_fidelity_var.fmr_fidelity_ID = 5566; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_FMR_Fidelity_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._fmr_fidelity) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+         FMR_Fidelity   storage _fmr_fidelity_var  = _routing_fmr_fidelity[msg.sender];  
+        _fmr_fidelity_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+
+       struct Bamco_Baron_Capital {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 bamco_baron_capital_ID;  
+      }
+      mapping(address => Bamco_Baron_Capital) private _routing_bamco_baron_capital;
+
+       
+       
+       function Register_Bamco_Baron_Capital() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._bamco_baron_capital) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         Bamco_Baron_Capital storage _bamco_baron_capital_var  = _routing_bamco_baron_capital[msg.sender]; 
+           _bamco_baron_capital_var._company_address = msg.sender; 
+           _bamco_baron_capital_var._registered = true;
+           _bamco_baron_capital_var.bamco_baron_capital_ID = 6677; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_Bamco_Baron_Capital_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._bamco_baron_capital) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+           Bamco_Baron_Capital storage _bamco_baron_var  = _routing_bamco_baron_capital[msg.sender];  
+        _bamco_baron_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+
+ 
+       struct Burgundy_Asset_Management {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 burgundy_asset_management_ID;  
+      }
+      mapping(address => Burgundy_Asset_Management)private _routing_burgundy_asset_management;
+      
+       function Register_Burgundy_Asset_Management() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._burgundy_asset_management) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         Burgundy_Asset_Management storage _burgundy_asset_management_var  = _routing_burgundy_asset_management[msg.sender]; 
+           _burgundy_asset_management_var._company_address = msg.sender; 
+           _burgundy_asset_management_var._registered = true;
+           _burgundy_asset_management_var.burgundy_asset_management_ID = 7788; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_Burgundy_Asset_Management_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._burgundy_asset_management) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+          Burgundy_Asset_Management storage _burgundy_asset_management_var  = _routing_burgundy_asset_management[msg.sender];   
+        _burgundy_asset_management_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+
+         struct State_Street {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 state_street_ID;  
+      }
+      mapping(address => State_Street)private _routing_state_street;
+      
+       function Register_State_Street() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._state_street) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         State_Street storage _state_street_var  = _routing_state_street[msg.sender]; 
+           _state_street_var._company_address = msg.sender; 
+           _state_street_var._registered = true;
+           _state_street_var.state_street_ID = 8899; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_State_Street_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._state_street) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+            State_Street storage _state_street_var  = _routing_state_street[msg.sender];    
+        _state_street_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+
+         struct Brave_Warrior_Advisors {
+         address _company_address; 
+         bool _registered; 
+         string[] stock_database;
+         uint256 brave_warrior_advisors_ID;  
+      }
+      mapping(address => Brave_Warrior_Advisors)private _routing_brave_warrior_advisors;
+      
+       function Register_Brave_Warrior_Advisors() external returns(string memory) { 
+          if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+          if(msg.sender != _Stake_Holders._brave_warrior_advisors) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
+          }
+         
+         Brave_Warrior_Advisors storage _brave_warrior_advisors_var  = _routing_brave_warrior_advisors[msg.sender]; 
+           _brave_warrior_advisors_var._company_address = msg.sender; 
+           _brave_warrior_advisors_var._registered = true;
+           _brave_warrior_advisors_var.brave_warrior_advisors_ID = 9910; 
+
+           return("Glad to have you on the Primerica utility");
+       }
+
+      function Primerica_Major_stockholder_Brave_Warrior_Advisors_Database(string memory _stake_record_data) external returns(bool) {
+        if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+        if(msg.sender != _Stake_Holders._brave_warrior_advisors) { 
+                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+          }
+
+            Brave_Warrior_Advisors storage _brave_warrior_var  = _routing_brave_warrior_advisors[msg.sender];    
+        _brave_warrior_var.stock_database.push(_stake_record_data);
+        
+        return(true); 
+      }
+      
+      struct Minimal_StockHolders { 
+         address minimal_SH_address;
+         uint256 _minimal_Registeration_ID; 
+         string[] _minimal_database; 
+         bool _minimal_registered; 
+      }
+
+     mapping(address => Minimal_StockHolders) private _routing_minimal_stockholders;
+
+      uint256 private _minimal_registeration_count; 
+       
+       event Primerica_Minimal_stockholders_Registeration_Emitted(address indexed _caller, uint256 indexed _registeration_Id);
+
+      function Primerica_Minimal_stockholders_Registeration(string memory _stake_record_data) external returns(string memory) { 
+         if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+           if(msg.sender == _routing_agent[msg.sender]._agent_address && msg.sender == _routing_recruit[msg.sender]._recruit_address) { 
+                 revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+           }
+            
+            _minimal_registeration_count++;
+
+            uint256 _minimal_id_value = _minimal_registeration_count;
+            
+             Minimal_StockHolders storage _minimal_stock_holders_var = _routing_minimal_stockholders[msg.sender]; 
+            _minimal_stock_holders_var.minimal_SH_address = msg.sender; 
+            _minimal_stock_holders_var._minimal_Registeration_ID = _minimal_id_value;  
+            _minimal_stock_holders_var._minimal_registered = true;
+
+            emit Primerica_Minimal_stockholders_Registeration_Emitted(msg.sender, _minimal_id_value);
+
+            return("We are glad to have you on primerica utility software minimal stake holder.");   
+      }
+
+      function Primerica_Minimal_stockholders_database() external returns(bool) {
+            if(address(0) == msg.sender) { 
+                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+           if(msg.sender == _routing_agent[msg.sender]._agent_address && msg.sender == _routing_recruit[msg.sender]._recruit_address) { 
+                 revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
+           }
+            Minimal_StockHolders storage _minimal_stock_holders_var = _routing_minimal_stockholders[msg.sender]; 
+            _minimal_stock_holders_var._minimal_database.push();
+            return true; 
+      }
+      
+      
+     error Your_Just_Recruit(address _caller, string _notAllowed_msg);
+     error Position_InCompelete(address _caller, uint256 recruited_number_incomplete);
+     error Not_Life_License_Yet(bool _No_Life_License);
+
+
+      event Confirm_Spare_Time_Position_Emitted(string indexed _you_earn, address _caller);
+      function Confirm_Spare_Time_Position() external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+       if(_routing_recruit[msg.sender]._signed_up == false) { 
+                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
+           }
+       if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
+              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
+         }
+      
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.spare_time = true;  
+
+       emit Confirm_Spare_Time_Position_Emitted("No earns Yet for you", msg.sender);
+       return true; 
+      }
+
+       event Confirm_Agent_Parttime_Position_Emitted(string indexed _you_earn, address _caller);
+      function Confirm_Agent_Parttime_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 1) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.agent_part_time = true; 
+       _agent_var.sales_premium_data.push(_sales_premium_data);
+
+       emit Confirm_Agent_Parttime_Position_Emitted("You earn 15% pay for each sale you made", msg.sender);
+
+       return true; 
+      }
+ 
+     event Confirm_Agent_FullTime_Position_Emitted(string indexed _you_earn, address _caller);
+
+      function Confirm_Agent_FullTime_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 1) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.agent_part_time = true; 
+       _agent_var.sales_premium_data.push(_sales_premium_data);
+        
+       emit Confirm_Agent_FullTime_Position_Emitted("You earn 30% pay for each sale you made", msg.sender);
+
+       return true; 
+      }
+
+      event Confirm_Senior_Representative_Position_Emitted(string indexed _you_earn, address _caller, bool _senior_representative);
+      function Confirm_Senior_Representative_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 2) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.senior_representative = true; 
+       _agent_var.sales_premium_data.push(_sales_premium_data);
+
+       emit Confirm_Senior_Representative_Position_Emitted("You earn 40% pay for each sale you made, note: repeat goal in 3 months you get extra $750", msg.sender, true);
+
+       return true; 
+      }
+
+      event Confirm_District_Leader_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
+      function Confirm_District_Leader_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 3) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.district_leader = true; 
+       _agent_var.sales_premium_data.push(_sales_premium_data); 
+       emit Confirm_District_Leader_Position_Emitted("You earn 50% pay for each sale you made", msg.sender, true);
+
+       return true; 
+      }
+
+      event Confirm_Division_Leader_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
+      function Confirm_Division_Leader_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 5) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.division_leader = true; 
+       _agent_var.two_direct_district_leaders = true; 
+       _agent_var.sales_premium_data.push(_sales_premium_data); 
+
+       emit Confirm_Division_Leader_Position_Emitted("You earn 60% pay for each sale you made", msg.sender, true);
+
+       return true; 
+      }
+
+      event Confirm_Regional_Leader_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
+      function Confirm_Regional_Leader_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 7) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.regional_leader = true; 
+       _agent_var.four_direct_district_leaders = true; 
+      _agent_var.sales_premium_data.push(_sales_premium_data); 
+
+       emit Confirm_Regional_Leader_Position_Emitted("You earn 70% pay for each sale you made", msg.sender, true);
+
+       return true; 
+      }
+      
+      error NO__Series_Twenty_Six_Licensed(bool _NO__Series_Twenty_Six_Licensed);
+
+      event Confirm_Regional_Vice_President_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
+      function Confirm_Regional_Vice_President_Position(string memory _sales_premium_data) external returns(bool) {
+       if(address(0) == msg.sender) { 
+            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
+           }
+      if(_routing_agent[msg.sender]._registered == false) { 
+           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
+        }
+      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
+           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
+      }
+      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 20) {
+           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
+      }
+      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
+          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
+      }
+      if(_routing_tier_ten[msg.sender]._Series_Twenty_Six_Licensed_Senior_VP_Task == false) { 
+          revert NO__Series_Twenty_Six_Licensed(_routing_tier_ten[msg.sender]._Series_Twenty_Six_Licensed_Senior_VP_Task );
+      }
+
+       Agent storage _agent_var = _routing_agent[msg.sender]; 
+       _agent_var.regional_leader = true; 
+       _agent_var.six_direct_district_leaders = true; 
+     _agent_var.sales_premium_data.push(_sales_premium_data); 
+
+       emit Confirm_Regional_Vice_President_Position_Emitted("You earn 110% pay for each sale you made", msg.sender, true);
+
+       return true; 
+      }
+
+      /* ------------------------------------------------------------------------------------------ */ 
    /* ---------------------------------------------------------------------------------------------- */
    /* ---------------------------------------------------------------------------------------------- */  
 
    
    // Registered Agents Array for their name, address, email 
-   string[] private _Registered_Agents_Name; 
-   address[] private _Registered_Agents_Addresses; 
-   string[] private _Registered_Agents_Emails;  
-   uint256 private _agent_registeration_count; 
-   string[] private _verified_Primerica_licenses; 
+  struct Register_Agents {
+    string[]  _Registered_Agents_Name; 
+   address[]  _Registered_Agents_Addresses; 
+   string[]  _Registered_Agents_Emails;  
+   uint256  _agent_registeration_count; 
+   string[]  _verified_Primerica_licenses;
+  } 
+  mapping(address => Register_Agents) private _routing_register_agents;
 
 
    error Mister_G__NO_ACCESS_FOR_YOU(address _caller, string _avoid_Msg);
@@ -1379,7 +1975,7 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         Mister_G_Tier_One storage _mister_g_tier_one  = _routing_tier_one[msg.sender]; 
         _mister_g_tier_one._achiever_address  = msg.sender; 
        
-       _verified_Primerica_licenses.push(_confirmed_license);
+       _routing_register_agents[msg.sender]._verified_Primerica_licenses.push(_confirmed_license);
        
        emit Push_Verified_Submitted_licensed_Emitted(msg.sender, _confirmed_license);
 
@@ -1391,8 +1987,8 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         if(msg.sender == address(0)) { 
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
-        if(_verified_Primerica_licenses.length == 0) { 
-            revert Mister_G__Nothing_To_Confirm( _verified_Primerica_licenses.length);
+        if(_routing_register_agents[msg.sender]._verified_Primerica_licenses.length == 0) { 
+            revert Mister_G__Nothing_To_Confirm(_routing_register_agents[msg.sender]._verified_Primerica_licenses.length);
         }
 
         Mister_G_Tier_One storage _mister_G_tier_one = _routing_tier_one[msg.sender];
@@ -1407,17 +2003,16 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
 /* --------------------------------------------------------------------------------------- */
 
 /* ------------------------------- Tier Two System -------------------------------------- */
- string[] private _Type_of_debt; 
- uint256[] private _Balance_owned; 
- uint256[] private _Interest_rate; 
- uint256[] private _Minimum_Monthly_Payment;  
-/*  struct DebtRecord {
-   string _Type_of_debt;
-   uint256 _Balance_owned;
-   uint256 _Interest_rate;
-   uint256 _Minimum_Monthly_Payment;
- }
- mapping(address => DebtRecord[]) private agentDebtRecords; */
+   
+   struct DebtRecord_struct { 
+ string[]  _Type_of_debt; 
+ uint256[]  _Balance_owned; 
+ uint256[]  _Interest_rate; 
+ uint256[]  _Minimum_Monthly_Payment;
+   }
+
+ DebtRecord_struct private _debtrecord_struct;
+
  event Push_Client_Debt_InformationEmitted(uint256 indexed _minimum_monthly_payment, uint256 indexed _interest_rate, uint256 indexed _balance_owned);
 
  function Push_Client_Debt_Information(string memory _type_of_debt, uint256 _balance_owned, uint256 _interest_rate, uint256 _minimum_monthly_payment) external returns(string memory) {
@@ -1430,11 +2025,12 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         }
         Mister_G_Tier_Two storage _mister_g_tier_two = _routing_tier_two[msg.sender];
         _mister_g_tier_two._achiever_address = msg.sender; 
+    
 
-       _Type_of_debt.push(_type_of_debt);
-       _Balance_owned.push(_balance_owned);
-       _Interest_rate.push(_interest_rate);
-       _Minimum_Monthly_Payment.push(_minimum_monthly_payment);
+       _debtrecord_struct._Type_of_debt.push(_type_of_debt);
+       _debtrecord_struct._Balance_owned.push(_balance_owned);
+       _debtrecord_struct._Interest_rate.push(_interest_rate);
+       _debtrecord_struct._Minimum_Monthly_Payment.push(_minimum_monthly_payment);
 
        emit  Push_Client_Debt_InformationEmitted(_minimum_monthly_payment, _interest_rate, _balance_owned);
 
@@ -1454,9 +2050,9 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
             revert Mister_G__Zero_Value_Needed(_index);
         }
    
-   uint256 _Balance_owned_Value = _Balance_owned[_index]; 
-   uint256 _Interest_rate_Value = _Interest_rate[_index]; 
-   uint256 _Minimum_Monthly_Payment_Value = _Minimum_Monthly_Payment[_index]; 
+   uint256 _Balance_owned_Value = _debtrecord_struct._Balance_owned[_index]; 
+   uint256 _Interest_rate_Value = _debtrecord_struct._Interest_rate[_index]; 
+   uint256 _Minimum_Monthly_Payment_Value = _debtrecord_struct._Minimum_Monthly_Payment[_index]; 
 
    uint256 _interest_percentage_value = _Balance_owned_Value * _Interest_rate_Value;
    uint256 _number_Of_Days_Left_ = _Balance_owned_Value / _Minimum_Monthly_Payment_Value; 
@@ -1473,17 +2069,17 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         if(msg.sender == address(0)) { 
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
-      if(_Type_of_debt.length < 10) {
-          revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_Type_of_debt.length);
+      if(_debtrecord_struct._Type_of_debt.length < 10) {
+          revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_debtrecord_struct._Type_of_debt.length);
       }
-      if(_Balance_owned.length < 10) {
-          revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_Balance_owned.length);
+      if(_debtrecord_struct._Balance_owned.length < 10) {
+          revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_debtrecord_struct._Balance_owned.length);
       }
-      if(_Interest_rate.length < 10) {
-          revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_Interest_rate.length);
+      if(_debtrecord_struct._Interest_rate.length < 10) {
+          revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_debtrecord_struct._Interest_rate.length);
       }
-      if(_Minimum_Monthly_Payment.length < 10) {
-        revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_Minimum_Monthly_Payment.length);
+      if(_debtrecord_struct._Minimum_Monthly_Payment.length < 10) {
+        revert Mister_G__DFA_Length_NOT_COMPLETED_YET(_debtrecord_struct._Minimum_Monthly_Payment.length);
       }
    Mister_G_Tier_Two storage _mister_g_tier_two  = _routing_tier_two[msg.sender];
    _mister_g_tier_two._Debt_Free_Advocate_Task = true;
@@ -1493,12 +2089,19 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
  }
 /* -------------------------------------------------------------------------------------- */
 /* ------------------------------- Tier Three System ------------------------------------ */
-string[] private store_recruited_Name;
-string[] private store_recruited_Nation_ID;
-string[] private store_recruited_Email;
 
-uint256 private _recruit_Id_count;
-uint256[] private _Store_recruit_Count; 
+ struct Recruit_Function_record { 
+string[]  store_recruited_Name;
+string[]  store_recruited_Nation_ID;
+string[]  store_recruited_Email;
+uint256[]  _Store_recruit_Count;
+
+ }
+ uint256  _recruit_Id_count;
+Recruit_Function_record private _recruit_function_record;  
+mapping(address => Recruit_Function_record) private _routing_recruit_function_record; 
+mapping(address => address) private _track_recruiter;
+mapping(address =>  uint256) private _track_number_recruited; 
 
  event Recruiter_Function_Emitted(string indexed _recruited_Name, string indexed _recruit_Msg);
 
@@ -1510,14 +2113,18 @@ uint256[] private _Store_recruit_Count;
          if(_routing_agent[msg.sender]._registered == false) { 
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
         }
-       
-       store_recruited_Name.push(_recruited_Name);
-       store_recruited_Nation_ID.push(_recruited_National_Identification);
-       store_recruited_Email.push(_recruited_Email);
+        
+        Recruit_Function_record storage _recruit_function_record = _routing_recruit_function_record[msg.sender]; 
 
+       _recruit_function_record.store_recruited_Name.push(_recruited_Name);
+       _recruit_function_record.store_recruited_Nation_ID.push(_recruited_National_Identification);
+       _recruit_function_record.store_recruited_Email.push(_recruited_Email);
+     
          _recruit_Id_count++;
-
-       _Store_recruit_Count.push(_recruit_Id_count);
+       _recruit_function_record._Store_recruit_Count.push(_recruit_Id_count);
+         
+       _track_recruiter[msg.sender] = msg.sender; 
+       _track_number_recruited[msg.sender] += 1;
       _Recruit_Msg = "Your  Primerica Backbone member, keep going and let's build the future together!"; 
       emit Recruiter_Function_Emitted(_recruited_Name, _Recruit_Msg);
 
@@ -1536,8 +2143,8 @@ uint256[] private _Store_recruit_Count;
           if(_routing_agent[msg.sender]._registered == false) { 
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
         }
-        if(_Store_recruit_Count.length < 5) {
-            revert Mister_G_Rcruit_Count_NOT_Reached(_Store_recruit_Count.length, "Pls keep recruiting your almost there!");
+        if(_recruit_function_record._Store_recruit_Count.length < 5) {
+            revert Mister_G_Rcruit_Count_NOT_Reached(_recruit_function_record._Store_recruit_Count.length, "Pls keep recruiting your almost there!");
         }
 
         Mister_G_Tier_Three storage _mister_g_three = _routing_tier_three[msg.sender]; 
@@ -1580,7 +2187,7 @@ uint256[] private _Store_recruit_Count;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
         if(_verified_Primerica_license_Six.length == 0) { 
-            revert Mister_G__Nothing_To_Confirm( _verified_Primerica_licenses.length);
+            revert Mister_G__Nothing_To_Confirm( _routing_register_agents[msg.sender]._verified_Primerica_licenses.length);
         }
 
         Mister_G_Tier_Four storage _mister_G_tier_four = _routing_tier_four[msg.sender];
@@ -1595,14 +2202,17 @@ uint256[] private _Store_recruit_Count;
 /* -------------------------------------------------------------------------------------- */
  
 /* ---------------------------------- Tier Five System ----------------------------------- */
-string[] private _twenty_appointments_record; 
-string[] private _ten_policies_written_record; 
-string[] private _five_recruits_in_30_days_record; 
-string[] private _two_licensed_within_30_days_record;
-string[] private _investments_reached_record; 
-string[] private _proof_of_team_repeatation_record;
-  
-  event Submit_Verified_of_Q3_Top_Earner_Emiited(string indexed _twenty_appointments_record, string indexed _ten_policies_written_record, string indexed _five_recruits_in_30_days_record); 
+struct Submit_Verified_of_Q3 {
+string[] _twenty_appointments_record; 
+string[]  _ten_policies_written_record; 
+string[]  _five_recruits_in_30_days_record; 
+string[]  _two_licensed_within_30_days_record;
+string[]  _investments_reached_record; 
+string[]  _proof_of_team_repeatation_record;
+}
+  mapping(address => Submit_Verified_of_Q3) private _routing_submit_verified_of_Q3; 
+
+  event Submit_Verified_of_Q3_Top_Earner_Emiited(string indexed _twenty_appointments_record_event, string indexed _ten_policies_written_record, string indexed _five_recruits_in_30_days_record); 
 
   function Submit_Verified_of_Q3_Top_Earner(string memory client_twenty_appointments_record, string memory client_ten_policies_written_record, string memory client_five_recruits_in_30_days_record, string memory client_two_licensed_within_30_days_record, string memory client_investments_reached_record, string memory client_proof_of_team_repeatation_record) external returns(string memory) {
      //Condition checking that the caller address is indeed a vaild address to call function
@@ -1612,13 +2222,13 @@ string[] private _proof_of_team_repeatation_record;
          if(_routing_agent[msg.sender]._registered == false) { 
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
         }
-       
-    _twenty_appointments_record.push(client_twenty_appointments_record);
-    _ten_policies_written_record.push(client_ten_policies_written_record);
-    _five_recruits_in_30_days_record.push(client_five_recruits_in_30_days_record);
-    _two_licensed_within_30_days_record.push(client_two_licensed_within_30_days_record);
-    _investments_reached_record.push(client_investments_reached_record);
-     _proof_of_team_repeatation_record.push(client_proof_of_team_repeatation_record);
+       Submit_Verified_of_Q3 storage _submit_verified_of_q3_var = _routing_submit_verified_of_Q3[msg.sender]; 
+    _submit_verified_of_q3_var._twenty_appointments_record.push(client_twenty_appointments_record);
+    _submit_verified_of_q3_var._ten_policies_written_record.push(client_ten_policies_written_record);
+    _submit_verified_of_q3_var._five_recruits_in_30_days_record.push(client_five_recruits_in_30_days_record);
+    _submit_verified_of_q3_var._two_licensed_within_30_days_record.push(client_two_licensed_within_30_days_record);
+    _submit_verified_of_q3_var._investments_reached_record.push(client_investments_reached_record);
+     _submit_verified_of_q3_var._proof_of_team_repeatation_record.push(client_proof_of_team_repeatation_record);
 
      emit Submit_Verified_of_Q3_Top_Earner_Emiited(client_twenty_appointments_record, client_ten_policies_written_record, client_five_recruits_in_30_days_record);
 
@@ -1635,30 +2245,30 @@ string[] private _proof_of_team_repeatation_record;
          if(_index != 0 ) { 
             revert Mister_G__Zero_Value_Needed(_index);
         }
-        if(_twenty_appointments_record.length == 0) {
-            revert Mister_G__Nothing_To_Confirm( _twenty_appointments_record.length);
+        if(_routing_submit_verified_of_Q3[msg.sender]._twenty_appointments_record.length == 0) {
+            revert Mister_G__Nothing_To_Confirm(_routing_submit_verified_of_Q3[msg.sender]._twenty_appointments_record.length);
         }
-        if(_ten_policies_written_record.length == 0) {
-            revert Mister_G__Nothing_To_Confirm( _ten_policies_written_record.length);
+        if(_routing_submit_verified_of_Q3[msg.sender]._ten_policies_written_record.length == 0) {
+            revert Mister_G__Nothing_To_Confirm(_routing_submit_verified_of_Q3[msg.sender]._ten_policies_written_record.length);
         }
-        if(_five_recruits_in_30_days_record.length == 0) {
-            revert Mister_G__Nothing_To_Confirm( _five_recruits_in_30_days_record.length);
+        if(_routing_submit_verified_of_Q3[msg.sender]._five_recruits_in_30_days_record.length == 0) {
+            revert Mister_G__Nothing_To_Confirm(_routing_submit_verified_of_Q3[msg.sender]._five_recruits_in_30_days_record.length);
         }
-        if(_two_licensed_within_30_days_record.length == 0) {
-            revert Mister_G__Nothing_To_Confirm( _two_licensed_within_30_days_record.length);
+        if(_routing_submit_verified_of_Q3[msg.sender]._two_licensed_within_30_days_record.length == 0) {
+            revert Mister_G__Nothing_To_Confirm( _routing_submit_verified_of_Q3[msg.sender]._two_licensed_within_30_days_record.length);
         }
-        if(_investments_reached_record.length == 0) {
-            revert Mister_G__Nothing_To_Confirm( _investments_reached_record.length);
+        if(_routing_submit_verified_of_Q3[msg.sender]._investments_reached_record.length == 0) {
+            revert Mister_G__Nothing_To_Confirm(_routing_submit_verified_of_Q3[msg.sender]._investments_reached_record.length);
         }
-        if(_proof_of_team_repeatation_record.length == 0) {
-           revert Mister_G__Nothing_To_Confirm( _proof_of_team_repeatation_record.length);
+        if(_routing_submit_verified_of_Q3[msg.sender]._proof_of_team_repeatation_record.length == 0) {
+           revert Mister_G__Nothing_To_Confirm(_routing_submit_verified_of_Q3[msg.sender]._proof_of_team_repeatation_record.length);
         }
 
      Mister_G_Tier_Five storage _mister_g_tier_five = _routing_tier_five[msg.sender];
      _mister_g_tier_five._achiever_address = msg.sender;
      _mister_g_tier_five._Mentor_Top_Earner_Task = true; 
 
-      emit Claim__Tier_5_Q3_Top_Earner_Emitted(_twenty_appointments_record[_index], _ten_policies_written_record[_index], _five_recruits_in_30_days_record[_index]);
+      emit Claim__Tier_5_Q3_Top_Earner_Emitted(_routing_submit_verified_of_Q3[msg.sender]._twenty_appointments_record[_index],_routing_submit_verified_of_Q3[msg.sender]._ten_policies_written_record[_index], _routing_submit_verified_of_Q3[msg.sender]._five_recruits_in_30_days_record[_index]);
 
       return("Thanks for claiming this milestone you deserve more than this, your impact has change the future.");
   }       
@@ -1674,8 +2284,8 @@ string[] private _proof_of_team_repeatation_record;
           if(_routing_agent[msg.sender]._registered == false) { 
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
         }
-        if(_Store_recruit_Count.length < 10) {
-            revert Mister_G_Rcruit_Count_NOT_Reached(_Store_recruit_Count.length, "Pls keep recruiting your almost there!");
+        if(_recruit_function_record._Store_recruit_Count.length < 10) {
+            revert Mister_G_Rcruit_Count_NOT_Reached(_recruit_function_record._Store_recruit_Count.length, "Pls keep recruiting your almost there!");
         }
 
         Mister_G_Tier_Six storage _mister_g_six = _routing_tier_six[msg.sender]; 
@@ -1896,6 +2506,13 @@ string[] private _verified_Primerica_license_Twenty_Six;
             revert Mister_G__You_Have_To_Get_Your_Pre_License(msg.sender, _routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state); 
         }
 
+
+      Register_Agents storage _register_agents_var = _routing_register_agents[msg.sender];
+        // Keeping Track of the Agents Data in an Array 
+      _register_agents_var._Registered_Agents_Name.push(_client_name);
+      _register_agents_var._Registered_Agents_Emails.push(_client_email);
+      _register_agents_var._Registered_Agents_Addresses.push(msg.sender);
+            
        // Generate Identification key for Agent
          _agent_identication_Count++; 
 
@@ -1911,14 +2528,10 @@ string[] private _verified_Primerica_license_Twenty_Six;
         _agent._agent_name = _client_name; 
         _agent._agent_id = _agent_identification_key; 
         _agent._registered = true;
-
-         // Keeping Track of the Agents Data in an Array
-        _Registered_Agents_Name.push(_client_name);
-        _Registered_Agents_Emails.push(_client_email);
-        _Registered_Agents_Addresses.push(msg.sender);
+       
         
         // Keeping Track of the registeration volumn
-        _agent_registeration_count + 1;
+        _routing_register_agents[msg.sender]._agent_registeration_count + 1;
 
         // Emit the Agent Data 
         emit  _Agent_Registeration_Emitted(msg.sender, _client_name, _client_email);
@@ -1935,7 +2548,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
        if(msg.sender == address(0)) { 
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
-       return _Registered_Agents_Addresses[_index]; 
+       return _routing_register_agents[msg.sender]._Registered_Agents_Addresses[_index]; 
     }
   
      // This Function let's the Admin search registered Names and query them from their Array 
@@ -1944,7 +2557,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
 
-       return _Registered_Agents_Name[_index]; 
+       return _routing_register_agents[msg.sender]._Registered_Agents_Name[_index]; 
     }
 
    // This Function let's the Admin search registered Emails and query them from their Array 
@@ -1953,7 +2566,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
 
-       return _Registered_Agents_Emails[_index]; 
+       return _routing_register_agents[msg.sender]._Registered_Agents_Emails[_index]; 
     }
 
     function Query_Whole_Registered_Addresses() public view Mister_G_Only(msg.sender) returns( address[] memory) {
@@ -1961,7 +2574,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
       
-      return(_Registered_Agents_Addresses);
+      return(_routing_register_agents[msg.sender]._Registered_Agents_Addresses);
     }
 
     function Query_Whole_Registered_Name() public view Mister_G_Only(msg.sender) returns( string[] memory) {
@@ -1969,7 +2582,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
       
-      return(_Registered_Agents_Name);
+      return(_routing_register_agents[msg.sender]._Registered_Agents_Name);
     }
 
       function Query_Whole_Registered_Emails() public view Mister_G_Only(msg.sender) returns( string[] memory) {
@@ -1977,7 +2590,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
       
-      return(_Registered_Agents_Emails);
+      return(_routing_register_agents[msg.sender]._Registered_Agents_Emails);
     }
 
     /* ---------------------------------------------------------------------------------- */
@@ -1999,7 +2612,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
         burn(_tokenId);
         return("You have burned the NFT minted");
      } 
-    
+   
     /* ---------------------------- Tier One NFT Reward System --------------------------- */
      uint256 private _rookie_Agent_Nft_Image_Count;
      uint256 private _rookie_Agent_NFT_Image_ID;
@@ -2029,9 +2642,9 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _rookie_Agent_NFT_Image_ID = new__rookie_Agent_Nft_Image_Count;
 
       _safeMint(_tier_One_Address, new__rookie_Agent_Nft_Image_Count);
-      _setTokenURI(new__rookie_Agent_Nft_Image_Count, _NFT_Rookie_Agent);  
+      _setTokenURI(new__rookie_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_one);  
       
-      emit Rookie_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__rookie_Agent_Nft_Image_Count, _NFT_Rookie_Agent);
+      emit Rookie_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__rookie_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_one);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
@@ -2069,13 +2682,15 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Debt_Free_Advocate_Agent_NFT_Image_ID = new__Debt_Free_Advocate_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Two_Address, new__Debt_Free_Advocate_Agent_Nft_Image_Count);
-      _setTokenURI(new__Debt_Free_Advocate_Agent_Nft_Image_Count, _NFT_Debt_Free_Advocate);  
+      _setTokenURI(new__Debt_Free_Advocate_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_two);  
       
-      emit Debt_Free_Advocate_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Debt_Free_Advocate_Agent_Nft_Image_Count, _NFT_Debt_Free_Advocate);
+      emit Debt_Free_Advocate_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Debt_Free_Advocate_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_two);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
      }
      /* ---------------------------------------------------------------------------------- */
+
+   
         /* ---------------------------- Tier Three NFT Reward System --------------------------- */
      uint256 private _first_person_sponsored_Agent_Nft_Image_Count;
      uint256 private _first_person_sponsored_Agent_NFT_Image_ID;
@@ -2105,14 +2720,16 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _first_person_sponsored_Agent_NFT_Image_ID = new__first_person_sponsored_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Three_Address, new__first_person_sponsored_Agent_Nft_Image_Count);
-      _setTokenURI(new__first_person_sponsored_Agent_Nft_Image_Count, _NFT_First_Person_sponsored);  
+      _setTokenURI(new__first_person_sponsored_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_three);  
       
-      emit _First_Person_Sponsored_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__first_person_sponsored_Agent_Nft_Image_Count, _NFT_First_Person_sponsored);
+      emit _First_Person_Sponsored_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__first_person_sponsored_Agent_Nft_Image_Count,  _PRI_NFTs._nft_diagram_three);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
      }
      /* ---------------------------------------------------------------------------------- */
+
+ 
            /* ---------------------------- Tier Four NFT Reward System --------------------------- */
      uint256 private _Series_Six_Agent_Nft_Image_Count;
      uint256 private _Series_Six_Agent_NFT_Image_ID;
@@ -2143,15 +2760,15 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Series_Six_Agent_NFT_Image_ID = new__Series_Six_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Four_Address, new__Series_Six_Agent_Nft_Image_Count);
-      _setTokenURI(new__Series_Six_Agent_Nft_Image_Count, _NFT_Series_Six_License);  
+      _setTokenURI(new__Series_Six_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_four);  
       
-      emit _Series_Six_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Six_Agent_Nft_Image_Count, _NFT_Series_Six_License);
+      emit _Series_Six_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Six_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_four);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
      }
      /* ---------------------------------------------------------------------------------- */
-
+  
        /* ---------------------------- Tier Five NFT Reward System --------------------------- */
      uint256 private _Top_Earner_Q_Three_Agent_Nft_Image_Count;
      uint256 private _Top_Earner_Q_Three_Agent_NFT_Image_ID;
@@ -2183,15 +2800,15 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Top_Earner_Q_Three_Agent_NFT_Image_ID = new__Top_Earner_Q_Three_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Five_Address, new__Top_Earner_Q_Three_Agent_Nft_Image_Count);
-      _setTokenURI(new__Top_Earner_Q_Three_Agent_Nft_Image_Count, _NFT_Top_Earner_Q_Three);  
+      _setTokenURI(new__Top_Earner_Q_Three_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_five);  
       
-      emit _Top_Earner_Q_Three_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Top_Earner_Q_Three_Agent_Nft_Image_Count, _NFT_Top_Earner_Q_Three);
+      emit _Top_Earner_Q_Three_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Top_Earner_Q_Three_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_five);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
      }
      /* ---------------------------------------------------------------------------------- */
-
+    
           /* ---------------------------- Tier Six NFT Reward System --------------------------- */
      uint256 private _Team_Builder_Agent_Nft_Image_Count;
      uint256 private _Team_Builder_Agent_NFT_Image_ID;
@@ -2223,14 +2840,15 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Team_Builder_Agent_NFT_Image_ID = new__Team_Builder_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Six_Address, new__Team_Builder_Agent_Nft_Image_Count);
-      _setTokenURI(new__Team_Builder_Agent_Nft_Image_Count, _NFT_Team_Builder);  
+      _setTokenURI(new__Team_Builder_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_six);  
       
-      emit _Team_Builder_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Team_Builder_Agent_Nft_Image_Count, _NFT_Team_Builder);
+      emit _Team_Builder_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Team_Builder_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_six);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
      }
      /* ---------------------------------------------------------------------------------- */
+
                /* ---------------------------- Tier Seven NFT Reward System --------------------------- */
      uint256 private _Series_Six_Three_Agent_Nft_Image_Count;
      uint256 private _Series_Six_Three_Agent_NFT_Image_ID;
@@ -2262,14 +2880,15 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Series_Six_Three_Agent_NFT_Image_ID = new__Series_Six_Three_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Seven_Address, new__Series_Six_Three_Agent_Nft_Image_Count);
-      _setTokenURI(new__Series_Six_Three_Agent_Nft_Image_Count, _NFT_Series_Six_Three_License);  
+      _setTokenURI(new__Series_Six_Three_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_seven);  
       
-      emit _Series_Six_Three_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Six_Three_Agent_Nft_Image_Count, _NFT_Series_Six_Three_License);
+      emit _Series_Six_Three_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Six_Three_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_seven);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
      }
      /* ---------------------------------------------------------------------------------- */
+
                  /* ---------------------------- Tier Eight NFT Reward System --------------------------- */
      uint256 private _Series_Seven_Agent_Nft_Image_Count;
      uint256 private _Series_Seven_Agent_NFT_Image_ID;
@@ -2301,9 +2920,9 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Series_Seven_Agent_NFT_Image_ID = new__Series_Seven_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Eight_Address, new__Series_Seven_Agent_Nft_Image_Count);
-      _setTokenURI(new__Series_Seven_Agent_Nft_Image_Count, _NFT_Series_Seven);  
+      _setTokenURI(new__Series_Seven_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_eight);  
       
-      emit _Series_Seven_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Seven_Agent_Nft_Image_Count, _NFT_Series_Seven);
+      emit _Series_Seven_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Seven_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_eight);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
@@ -2341,15 +2960,15 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Series_Six_Five_Six_Six_Agent_NFT_Image_ID = new__Series_Six_Five_Six_Six_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Nine_Address, new__Series_Six_Five_Six_Six_Agent_Nft_Image_Count);
-      _setTokenURI(new__Series_Six_Five_Six_Six_Agent_Nft_Image_Count, _NFT_Series_Six_Five_Six_Six);  
+      _setTokenURI(new__Series_Six_Five_Six_Six_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_nine);  
       
-      emit _Series_Six_Five_Six_Six_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Six_Five_Six_Six_Agent_Nft_Image_Count, _NFT_Series_Six_Five_Six_Six);
+      emit _Series_Six_Five_Six_Six_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Six_Five_Six_Six_Agent_Nft_Image_Count,  _PRI_NFTs._nft_diagram_nine);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
      }
      /* ---------------------------------------------------------------------------------- */
-
+     
                    /* ---------------------------- Tier Nine NFT Reward System --------------------------- */
      uint256 private _Series_Twenty_Six_Agent_Nft_Image_Count;
      uint256 private  _Series_Twenty_Six_Agent_NFT_Image_ID;
@@ -2381,9 +3000,9 @@ string[] private _verified_Primerica_license_Twenty_Six;
       _Series_Twenty_Six_Agent_NFT_Image_ID = new__Series_Twenty_Six_Agent_Nft_Image_Count;
 
       _safeMint(_tier_Ten_Address, new__Series_Twenty_Six_Agent_Nft_Image_Count);
-      _setTokenURI(new__Series_Twenty_Six_Agent_Nft_Image_Count, _NFT_Series_Twenty_Six);  
+      _setTokenURI(new__Series_Twenty_Six_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_ten);  
       
-      emit _Series_Twenty_Six_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Twenty_Six_Agent_Nft_Image_Count, _NFT_Series_Twenty_Six);
+      emit _Series_Twenty_Six_Agent_NFT_Mint_Reward_Emitted(msg.sender, new__Series_Twenty_Six_Agent_Nft_Image_Count, _PRI_NFTs._nft_diagram_ten);
 
       return("You Have Successfully claimed your NFT milestone, this serves as a signature of your hardwork and a big upgrade to your reputation");
 
@@ -2391,6 +3010,365 @@ string[] private _verified_Primerica_license_Twenty_Six;
      /* ---------------------------------------------------------------------------------- */
     /* ---------------------------------------------------------------------------------- */
 
+  /* ------------ Getter Functions ------------ */
+ 
+  function View_Primerica_Company_Contract_Address() view external returns(address) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+    return(contract_owner);
+  }
+
+  function   View_agent_identication_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_agent_identication_Count);
+  }
+  
+  function View__your_agent_id() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_your_agent_id);
+  }
+
+  function View_NFT_Rookie_Agent() view external returns(string memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_one);
+  }
+
+  function View_NFT_Debt_Free_Advocate() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_two);
+  }
+
+  function View_NFT_First_Person_sponsored() view external returns(string memory) { 
+        if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_three);
+  } 
+
+  function View_NFT_Series_Six_License() view external returns(string memory) { 
+      if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_four);
+  } 
+
+  function View_NFT_Top_Earner_Q_Three() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_five);
+  }
+
+    function View_NFT_Team_Builder() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_six);
+  }
+
+  function View_NFT_Series_Six_Three_License() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_seven);
+  }
+
+    function View_NFT_Series_Seven() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_eight);
+  }
+
+  function View_NFT_Series_Six_Five_Six_Six() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_nine);
+  }
+
+  function View_NFT_Series_Twenty_Six() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._nft_diagram_ten);
+  }
+
+ function View_Recruit_NFT() view external returns(string memory) { 
+     if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_PRI_NFTs._recruit_nft);
+  }
+
+  function  View_signed_up_recruits() view external returns(uint256) { 
+   if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(signed_up_recruits);
+  }
+
+  function View_recruit_token_count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_recruit_token_count);
+  }
+
+   function View_INTERVAL() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_INTERVAL);
+  }
+ 
+    function View_totalRatings() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(totalRatings);
+  }
+
+  function View_biennial_requested_addresses() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_biennial_requested_addresses.length);
+  }
+
+  function View_Annual_Leadership_requested_addresses() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Annual_Leadership_requested_addresses.length);
+  }
+
+   function View_African_American_Leadership_requested_addresses() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_African_American_Leadership_requested_addresses.length);
+  }
+
+   function View_Recognition_Trips_Incentive_Events_requested_addresses() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Recognition_Trips_Incentive_Events_requested_addresses.length);
+  }
+
+   function View_Kayne_Anderson_Rudnick_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_kayne_anderson_rudnick[msg.sender].stock_database);
+  }
+
+   function View_Vanguard_Group_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(routing_vanguard_group[msg.sender].stock_database);
+  }
+
+    function View_BlackRock_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(routing_black_rock[msg.sender].stock_database);
+  }
+
+   function View_FMR_Fidelity_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_fmr_fidelity[msg.sender].stock_database);
+  }
+  
+   function View_Bamco_Baron_Capital_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_bamco_baron_capital[msg.sender].stock_database);
+  }
+
+     function View_Burgundy_Asset_Management_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_burgundy_asset_management[msg.sender].stock_database);
+  }
+
+     function View_State_Street_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_state_street[msg.sender].stock_database);
+  }
+
+       function View_Brave_Warrior_Advisors_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_brave_warrior_advisors[msg.sender].stock_database);
+  }
+
+    function View_routing_minimal_stockholders_Database() view external returns(string[] memory) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_routing_minimal_stockholders[msg.sender]._minimal_database);
+  }
+
+     function View_minimal_registeration_count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_minimal_registeration_count);
+  }
+
+   function View_recruit_Id_count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_recruit_Id_count);
+  }
+
+  function View_Debt_Free_Advocate_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Debt_Free_Advocate_Agent_Nft_Image_Count);
+  }
+
+   function View_Debt_Free_Advocate_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Debt_Free_Advocate_Agent_NFT_Image_ID);
+  }
+
+    function View_first_person_sponsored_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_first_person_sponsored_Agent_Nft_Image_Count);
+  }
+
+    function View_first_person_sponsored_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_first_person_sponsored_Agent_NFT_Image_ID);
+  }
+
+  function View_Series_Six_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Six_Agent_Nft_Image_Count);
+  }
+
+  function View_Series_Six_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Six_Agent_NFT_Image_ID);
+  }
+
+    function View_Top_Earner_Q_Three_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Top_Earner_Q_Three_Agent_Nft_Image_Count);
+  }
+
+     function View_Top_Earner_Q_Three_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Top_Earner_Q_Three_Agent_NFT_Image_ID);
+  }
+
+  
+     function View_Team_Builder_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Team_Builder_Agent_Nft_Image_Count);
+  }
+
+   function View_Team_Builder_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Team_Builder_Agent_NFT_Image_ID);
+  }
+
+   function View_Series_Six_Three_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Six_Three_Agent_Nft_Image_Count);
+  }
+
+   function View_Series_Six_Three_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Six_Three_Agent_NFT_Image_ID);
+  }
+
+   function View_Series_Seven_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Seven_Agent_Nft_Image_Count);
+  }
+
+ function View_Series_Seven_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Seven_Agent_NFT_Image_ID);
+  }
+
+   function View_Series_Six_Five_Six_Six_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Six_Five_Six_Six_Agent_Nft_Image_Count);
+  }
+
+    function View_Series_Six_Five_Six_Six_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Six_Five_Six_Six_Agent_NFT_Image_ID);
+  }
+
+  function View_Series_Twenty_Six_Agent_Nft_Image_Count() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Twenty_Six_Agent_Nft_Image_Count);
+  }
+
+ function View_Series_Twenty_Six_Agent_NFT_Image_ID() view external returns(uint256) { 
+    if(msg.sender == address(0)) { 
+           revert Mister_G__Invalid_Wallet_Address(msg.sender);
+        }
+        return(_Series_Twenty_Six_Agent_NFT_Image_ID);
+  }
 
 
 }

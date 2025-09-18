@@ -257,9 +257,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
               }
 
-              if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
+             
               
              if (keccak256(abi.encode(_New_York)) == keccak256(abi.encode(_state_name))) {
                 return  _US_north_east._New_York_City; 
@@ -318,9 +316,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
               }
 
-              if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
+              
               
               if(keccak256(abi.encode(_Atlanta)) == keccak256(abi.encode(_state_name))) {
                 return  _US_south._Atlanta_City; 
@@ -382,9 +378,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
               }
 
-              if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
+             
               
               if(keccak256(abi.encode(_Chicago)) == keccak256(abi.encode(_state_name))) {
                 return  _US_midwest._Chicago_City; 
@@ -436,9 +430,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
               }
 
-              if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
+            
               
               if(keccak256(abi.encode(_Los_Angeles)) == keccak256(abi.encode(_state_name))) {
                 return  _US_west._Los_Angeles_City; 
@@ -493,9 +485,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
               }
 
-              if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
+             
               
               if(keccak256(abi.encode(_Toronto)) == keccak256(abi.encode(_state_name))) {
                 return  _CA_hubs._Toronto_City; 
@@ -524,97 +514,9 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
                emit View_Canada_Hubs_Emitted("Your search has been received this is the list of the locations of the exam centers in your state!");
             }
         /* --------------------------------------------------------------------------------------- */
-
    /* ---------------------------------------------------------------------------------------------- */
       /* ------------------------------- Pre-Licensing --------------------------------------  */
-         struct Recruit { 
-            address _recruit_address; 
-            bool _signed_up; 
-            bool _material_access; 
-            uint256 _recruit_id;
-            string _pre_life_insurance_exam_certificate_completion; 
-            bool  _pre_life_insurance_exam_certificate_completion_state;
-            bool _claimed_recruit_nft; 
-            bool _Biennial_Convention_invited;
-            bool _Annual_Leadership_Meeting_invited;
-            bool _African_Leadership_Council_invited;
-            bool _Recognition_Trips_Incentive_Events_invited;    
-         }
-         mapping(address => Recruit) private _routing_recruit; 
 
-         uint256 private  recruit_count = 0;
-         uint256 private _Recruit_ID; 
-         
-        
-         error Mister_G__Your_Already_An_Agent(address _caller); 
-         error Mister_G__Insufficient_Funds(address _caller, uint256 _amount);
-         error Mister_G__You_Dont_Have_Access_Digital_Utilities(address _caller, bool _material_state, bool signup_state); 
-  
-          struct YourSignUp_Data {
-            address[] _signup_address; 
-            string[] name; 
-            string[] ssn; 
-            string[] dob; 
-            string[] contact_info; 
-            string[] citizenship_residency_status; 
-          }
-
-          YourSignUp_Data private _yoursignup_data; 
-          mapping (address => YourSignUp_Data) private _routing_yoursignup_data;
-          uint256 private signed_up_recruits; 
-          
-         event Primerica_Book_Sign_Up_Emitted(address indexed _caller, uint256 indexed block_timestamp); 
-
-         function Primerica_Book_Sign_Up(YourSignUp_Data memory _data) external returns(string memory _signed)  {
-              if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-              }
-              if(msg.sender == address(this)) { 
-                 revert Mister_G__Contract_Admin_Restricted(address(this));      
-              }
-              if(_routing_agent[msg.sender]._registered == true) { 
-                revert Mister_G__Your_Already_An_Agent(msg.sender); 
-              }
-            
-              
-              recruit_count++; 
-
-              _Recruit_ID = recruit_count; 
-              _yoursignup_data = _data; 
-              signed_up_recruits++;
-                      
-              Recruit storage _recruited = _routing_recruit[msg.sender]; 
-              _recruited._recruit_address = msg.sender; 
-              _recruited._signed_up = true;
-              _recruited._material_access = true; 
-              _recruited._recruit_id = recruit_count;
-            
-              emit  Primerica_Book_Sign_Up_Emitted(msg.sender,  block.timestamp);
-              _signed = "Thanks for signing up with Primerica you have begin your path of great wealth."; 
-
-              return(_signed);
-         }
-         
-         event Submit_Sign_Up_Data_Via_Third_Party_Institutions_Emailling_Emitted(string indexed, bool _state);
-
-         function Submit_Sign_Up_Data_Via_Third_Party_Institutions_Emailling() public Mister_G_Only(msg.sender) returns(YourSignUp_Data memory) {
-
-              if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-              }
-            YourSignUp_Data memory _data_submit = _routing_yoursignup_data[msg.sender]; 
-
-            YourSignUp_Data storage _remove_data_ = _routing_yoursignup_data[msg.sender]; 
-           delete _remove_data_._signup_address;
-           delete _remove_data_.name;
-           delete _remove_data_.ssn; 
-           delete _remove_data_.dob; 
-           delete _remove_data_.contact_info; 
-           delete _remove_data_.citizenship_residency_status; 
-         
-         emit Submit_Sign_Up_Data_Via_Third_Party_Institutions_Emailling_Emitted("Mister_G has successffully forwarded Signed Up Recruits to the Third Party exam companys, a click away to email", true); 
-           return(_data_submit);
-         } 
 
           struct Digital_TextBook {
            string[] _Digital_links;
@@ -669,9 +571,7 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
              }
 
-             if(_routing_recruit[msg.sender]._signed_up == false && _routing_recruit[msg.sender]._material_access == false) {
-             revert Mister_G__You_Dont_Have_Access_Digital_Utilities(msg.sender, _routing_recruit[msg.sender]._material_access, _routing_recruit[msg.sender]._signed_up); 
-             }
+            
 
             Digital_TextBook memory digital_textbook_var = _routing_digital_textbook[msg.sender]; 
             
@@ -695,9 +595,6 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
              }
 
-             if(_routing_recruit[msg.sender]._signed_up == false && _routing_recruit[msg.sender]._material_access == false) {
-             revert Mister_G__You_Dont_Have_Access_Digital_Utilities(msg.sender, _routing_recruit[msg.sender]._material_access, _routing_recruit[msg.sender]._signed_up); 
-             }
 
             Digital_Videos_Tut memory digital_video_tut_var = _routing_digital_video_tut[msg.sender]; 
             
@@ -706,154 +603,6 @@ contract Mister_G is ERC721, ERC721URIStorage, ERC721Burnable{
             return(digital_video_tut_var);
         }
 
-       error Mister_G__Not_Signed_UP_Yet(address _caller, bool _signed_up);
-       error Mister_G__Your_An_Agent(address _caller);
-
-       function Pre_Licensing_Certification_Completion(string memory _pre_license) external returns(string memory pre_licensing_msg) {
-          if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            }
-
-           if(msg.sender == address(this)) { 
-                 revert Mister_G__Contract_Admin_Restricted(address(this));      
-            }
-            
-            if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-            if(_routing_agent[msg.sender]._registered == true) {
-                revert Mister_G__Your_An_Agent(msg.sender); 
-            }
-          
-          Recruit storage _recruit_var = _routing_recruit[msg.sender]; 
-          _recruit_var._pre_life_insurance_exam_certificate_completion_state = true; 
-          _recruit_var._pre_life_insurance_exam_certificate_completion = _pre_license; 
-
-          pre_licensing_msg = "You have successfully compeleted your pre_License exam and have now fully qualified for the actual exam keep in contact as the third party exam organisers invite you! GoodLuck! from Mister_G";
-
-          return(pre_licensing_msg); 
-       }
-       
-       struct Store_Exam_Schedule { 
-         uint256 _date; 
-         string _location; 
-         uint256 _month;
-         uint256 _year;
-       }
-       mapping(address => Store_Exam_Schedule) private _routing_store_exam_schedule;
-       
-       event Store_Schedule_Exam_Date_Emitted(uint256 indexed _data, uint256 indexed month, uint256 indexed year);
-
-       function Store_Schedule_Exam_Date(uint256 _date, string memory _location, uint256 _month, uint256 _year) external returns(bool) {
-          if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            }
-           if(msg.sender == address(this)) { 
-                 revert Mister_G__Contract_Admin_Restricted(address(this));      
-            }
-             if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-            if(_routing_agent[msg.sender]._registered == true) { 
-                revert Mister_G__Your_Already_An_Agent(msg.sender); 
-              }
-
-            Store_Exam_Schedule storage _store_exam_schedule = _routing_store_exam_schedule[msg.sender];
-            _store_exam_schedule._date =  _date;
-            _store_exam_schedule._location = _location; 
-            _store_exam_schedule._month = _month; 
-            _store_exam_schedule._year = _year; 
-         
-         emit Store_Schedule_Exam_Date_Emitted(_date, _month, _year);
-         return true;  
-       }
-      
-      event View_Exam_Schedule_Emitted(string indexed _viewed_Schedule);
-
-       function View_Exam_Schedule() external  returns(uint256, uint256, string memory) {  
-          if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            }
-           if(msg.sender == address(this)) { 
-                 revert Mister_G__Contract_Admin_Restricted(address(this));      
-            }
-             if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-            if(_routing_agent[msg.sender]._registered == true) { 
-                revert Mister_G__Your_Already_An_Agent(msg.sender); 
-              }
-
-              Store_Exam_Schedule memory _view_stored_data = _routing_store_exam_schedule[msg.sender]; 
-              
-              emit View_Exam_Schedule_Emitted("You just viewd your Exam Schedule");
-
-              return(_view_stored_data._date, _view_stored_data._month, _view_stored_data._location);
-       }
-        
-        event Cancel_Scheduled_Exam_Date_Emitted(string indexed _Cancel_Exam_Schedule_Msg);
-
-       function Cancel_Scheduled_Exam_Date() external returns(bool) { 
-          if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            }
-           if(msg.sender == address(this)) { 
-                 revert Mister_G__Contract_Admin_Restricted(address(this));      
-            }
-             if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-            if(_routing_agent[msg.sender]._registered == true) { 
-                revert Mister_G__Your_Already_An_Agent(msg.sender); 
-              }
-              Store_Exam_Schedule storage reset_stored_data = _routing_store_exam_schedule[msg.sender]; 
-              reset_stored_data._date = 0;
-              reset_stored_data._month = 0; 
-              reset_stored_data._year = 0; 
-              reset_stored_data._location = ""; 
-              
-            emit Cancel_Scheduled_Exam_Date_Emitted("You have successful reset the Exam Schedule Data's State");
-            return true; 
-       }
-    
-        uint256 private _recruit_token_count = 0; 
-                  
-        error Mister_G__You_Have_To_Complete_pre_life_insurance(address _caller, string _No_pre_license);
-        error Mister_G__You_Have_Claimed_Recruit_NFT(address _caller, bool _claimed_recruit_nft); 
-        event  Recruit_NFT_Emitted(uint256 indexed tokenId, address indexed _caller, string _claimed_nft);
-      
-
-        function Recruit_NFT() external returns(bool) {
-
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            }
-         if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_agent[msg.sender]._registered == true) { 
-                revert Mister_G__Your_Already_An_Agent(msg.sender); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
-         if(_routing_recruit[msg.sender]._claimed_recruit_nft == true) {
-              revert Mister_G__You_Have_Claimed_Recruit_NFT(msg.sender, _routing_recruit[msg.sender]._claimed_recruit_nft); 
-         }
-
-           _recruit_token_count++; 
-           uint256 new_recruit_token_count = _recruit_token_count; 
-            
-            Recruit storage _recruit_var = _routing_recruit[msg.sender]; 
-            _recruit_var._claimed_recruit_nft  = true; 
-
-            _safeMint(msg.sender, new_recruit_token_count);
-            _setTokenURI(new_recruit_token_count, _PRI_NFTs._recruit_nft);  
-
-            emit Recruit_NFT_Emitted(new_recruit_token_count, msg.sender, _PRI_NFTs._recruit_nft);
-           
-           return true; 
-        }
 
        struct Training_Recruited_Rep {
          string[] _learn_to_sell_insurance_mutual_funds_videos;
@@ -908,12 +657,8 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
+       
+        
          
         return(_training_rep_state_var._learn_to_sell_insurance_mutual_funds_videos);
      }
@@ -923,12 +668,8 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
+     
+       
         
         return(_training_rep_state_var._learn_to_sell_insurance_mutual_funds_books);
      }
@@ -952,12 +693,8 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
          if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
-         if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
+        
+         
 
       uint256 last = lastRatedAt[msg.sender]; 
 
@@ -980,12 +717,8 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
          if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
-         if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
+         
+         
 
       uint256 last = lastRatedAt[_user]; 
 
@@ -1002,928 +735,11 @@ for(uint256 i = _index; i < _training_rep_state_var._learn_to_sell_insurance_mut
         if(address(0) == msg.sender) { 
                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
             } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
+      
+        
 
       return(_users_rate_volume[_primerica_user]); 
    }
-
-   error Invitation_Not_Compelete(address _caller, uint256 _rate_volumn);
-
-     function Invite_Recruit_to_Biennial_Convention(address _primerica_user) Mister_G_Only(msg.sender) public returns(bool) {
-       if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-        if(_users_rate_volume[_primerica_user] < 300) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
-        }
-
-     Recruit storage _recruit_var = _routing_recruit[msg.sender];
-        _recruit_var._Biennial_Convention_invited = true;  
-
-        return(true); 
-     }
-
-     function UnInvite_Recruit_to_Biennial_Convention(address _primerica_user) Mister_G_Only(msg.sender) public returns(bool) {
-         if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-         }
-
-        Recruit storage _recruit_var = _routing_recruit[msg.sender];
-        _recruit_var._Biennial_Convention_invited = false;
-
-       _users_rate_volume[_primerica_user] = 0; 
-
-       return(true); 
-     }
-  
-     function Invite_Recruit_to_Annual_Leadership_Meeting(address _primerica_user) public Mister_G_Only(msg.sender) returns(bool) {
-      if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-      }
-      if(_users_rate_volume[_primerica_user] < 250) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
-        }
-
-        Recruit storage _recruit_var = _routing_recruit[msg.sender];
-        _recruit_var._Annual_Leadership_Meeting_invited = true; 
-
-      return(true); 
-     }
-
-     function UnInvite_Recruit_to_Annual_Leadership_Meeting(address _primerica_user) public Mister_G_Only(msg.sender) returns(bool) { 
-      if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-      }
-
-     Recruit storage _recruit_var = _routing_recruit[msg.sender];
-      _recruit_var._Annual_Leadership_Meeting_invited = false;
-     
-     _users_rate_volume[_primerica_user]  = 0; 
-      return(true);  
-     }
-
-     function Invite_Recruit_to_African_Leadership_Council(address _primerica_user) public Mister_G_Only(msg.sender) returns(bool) {
-        if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-        }
-      if(_users_rate_volume[_primerica_user] < 200) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
-        }
-     
-        Recruit storage _recruit_var = _routing_recruit[msg.sender];
-      _recruit_var._African_Leadership_Council_invited = true;
-
-      return(true); 
-     }
-
-     function UnInvite_Recruit_to_African_Leadership_Council(address _primerica_user) public Mister_G_Only(msg.sender) returns(bool) { 
-       if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-      }
-     
-        Recruit storage _recruit_var = _routing_recruit[msg.sender];
-      _recruit_var._African_Leadership_Council_invited = false;
-
-      _users_rate_volume[_primerica_user] = 0; 
-
-      return(true); 
-     }
-
-     function Invite_Recruit_to_Recognition_Trips_Incentive_Events(address _primerica_user) public Mister_G_Only(msg.sender) returns(bool) {  
-       if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-        }
-      if(_users_rate_volume[_primerica_user] < 200) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[_primerica_user]); 
-        }
-
-          Recruit storage _recruit_var = _routing_recruit[msg.sender];
-      _recruit_var._Recognition_Trips_Incentive_Events_invited = true;
-
-      return(true); 
-     }
-
-     function UnInvite_Recruit_to_Recognition_Trips_Incentive_Events(address _primerica_user) public Mister_G_Only(msg.sender) returns(bool) { 
-       if(address(0) == msg.sender) { 
-             revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-        } 
-
-       Recruit storage _recruit_var = _routing_recruit[msg.sender];
-      _recruit_var._Recognition_Trips_Incentive_Events_invited = false;
-       
-       _users_rate_volume[_primerica_user] = 0; 
-
-      return(true);
-     }
-
-     address[] private _biennial_requested_addresses;
-     error Mister_G__You_Have_Complete_pre_life_insurance(address  _caller, string _compeleted_msg);
-
-     function Request_Biennial_Invitation() external returns(string memory ) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
-         if(_users_rate_volume[msg.sender] < 300) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
-        }
-         
-         _biennial_requested_addresses.push(msg.sender);
-
-         return("You have requested for biennial meeting and your address has been added to be reviewed by Primerica"); 
-     }
-      
-      function View_Biennial_Request_Array() public view Mister_G_Only(msg.sender) returns(address[] memory) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-
-            return _biennial_requested_addresses;
-      }
-
-      address[] private _Annual_Leadership_requested_addresses;
-     function Request_Annual_Leadership_Invitation() external returns(string memory ) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
-         if(_users_rate_volume[msg.sender] < 250) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
-        }
-         
-         _Annual_Leadership_requested_addresses.push(msg.sender);
-
-         return("You have requested for Annual Leadership meeting and your address has been added to be reviewed by Primerica"); 
-     }
-      
-         function View_Annual_Leadership_Request_Array() public view Mister_G_Only(msg.sender) returns(address[] memory) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-
-            return _Annual_Leadership_requested_addresses;
-      }
-
-         address[] private _African_American_Leadership_requested_addresses;
-     function Request_African_American_Leadership_Invitation() external returns(string memory ) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
-         if(_users_rate_volume[msg.sender] < 200) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
-        }
-         
-         _African_American_Leadership_requested_addresses.push(msg.sender);
-
-         return("You have requested for African / American meeting and your address has been added to be reviewed by Primerica"); 
-     }
-
-          function View_African_American_Leadership_Request_Array() public view Mister_G_Only(msg.sender) returns(address[] memory) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-
-            return _African_American_Leadership_requested_addresses;
-      }
-
-
-        address[] private _Recognition_Trips_Incentive_Events_requested_addresses;
-     function Request_Recognition_Trips_Incentive_Event_Invitation() external returns(string memory ) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-        if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-            }
-         if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
-         if(_users_rate_volume[msg.sender] < 150) { 
-             revert Invitation_Not_Compelete(msg.sender, _users_rate_volume[msg.sender]); 
-        }
-         
-         _Recognition_Trips_Incentive_Events_requested_addresses.push(msg.sender);
-
-         return("You have requested for Recognition Trips / Incentive Events meeting and your address has been added to be reviewed by Primerica"); 
-     }
-
-          function View_Recognition_Trips_Incentive_Event_Request_Array() public view Mister_G_Only(msg.sender) returns(address[] memory) {
-         if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            } 
-
-            return _Recognition_Trips_Incentive_Events_requested_addresses;
-      }
-
-      function Access_To_Live_PRI_STOCK_DATA() external view returns(bool) {
-           if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-            }
-           if(_routing_agent[msg.sender]._registered == false) { 
-            revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-              }
-
-            if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
-                if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-            }
-
-            return(true); 
-       }
-      
-      event Pass_Information_to_Primerica_Community_Emitted(string indexed _information_for_primerica, address indexed _primerica_company_address);
-
-       function Pass_Information_to_Primerica_Community(string memory _information_for_primerica) public Mister_G_Only(msg.sender) returns(string memory _primerica_information) {
-
-         if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-             }   
-         
-         _primerica_information = _information_for_primerica; 
-         
-         emit Pass_Information_to_Primerica_Community_Emitted(_information_for_primerica, msg.sender);
-         return(_primerica_information); 
-       }
-        
-        struct Primerica_Violations_Report_Data { 
-          string[]  _event_description;
-          string[]  _guilty_informations; 
-          address[] _reporter_address; 
-        }
-          mapping(address => Primerica_Violations_Report_Data) private routing_primerica_violations_report_data;
-        
-           event Report_Primerica_Rules_Violations_Emitted(address indexed _reporter, string indexed _event);
-
-       function Report_Primerica_Rules_Violations(string memory _event_narration, string memory _guilty_infos) external returns(string memory) { 
-            if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-             }
-            if(_routing_agent[msg.sender]._registered == false) { 
-            revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-              }
-
-            if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-              }
-            if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-            }
-
-            Primerica_Violations_Report_Data storage _primerica_vio = routing_primerica_violations_report_data[msg.sender]; 
-            _primerica_vio._event_description.push(_event_narration); 
-            _primerica_vio._guilty_informations.push(_guilty_infos); 
-            _primerica_vio._reporter_address.push(msg.sender);
-
-            emit Report_Primerica_Rules_Violations_Emitted(msg.sender, _event_narration);
-
-            return("Thanks for being a law abiding member of primerica, we will address the situation as soon as possible!"); 
-       }
-       
-       struct Bussiness_Developnment_Data  { 
-        string[] _ideas_storage; 
-       }
-
-      Bussiness_Developnment_Data private _bussiness_developnment_ideas; 
-       
-       event Feed_Primerica_Bussiness_development_Ideas_Emitted(address indexed _developnment_contributor); 
-
-       function Feed_Primerica_Bussiness_development_Ideas(string memory _ideas) external returns(string memory) { 
-         if(address(0) == msg.sender) { 
-                  revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-             }
-         if(contract_owner == msg.sender) {
-            revert Mister_G__Contract_Admin_Restricted(msg.sender);
-            }
-         _bussiness_developnment_ideas._ideas_storage.push(_ideas);
-
-          emit Feed_Primerica_Bussiness_development_Ideas_Emitted(msg.sender);
-         return("Thanks for being than a contributor in the developnment of Primerica Company, Primerica appreciates your ideas"); 
-       }
-
-   function View_Feed_Primerica_Bussiness_development_Ideas() public view Mister_G_Only(msg.sender) returns(string[] memory) {
-          if(address(0) == msg.sender) { 
-               revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-         
-         return  (_bussiness_developnment_ideas._ideas_storage); 
-       }
-      
-       function Clear_Feed_Primerica_Bussiness_development_Ideas() public Mister_G_Only(msg.sender) returns(bool) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-           delete  _bussiness_developnment_ideas._ideas_storage; 
-
-           return true; 
-       }
-
-      struct Kayne_Anderson_Rudnick {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 _kayne_anderson_rudnick_ID;  
-      }
-      mapping(address => Kayne_Anderson_Rudnick) private _routing_kayne_anderson_rudnick;
-
-       error Only_Stakeholders_(address _caller, string _Not_stakeholder_msg);
-       
-       function Register_Kayne_Anderson_Rudnick() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._kayne_anderson_rudnick) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         Kayne_Anderson_Rudnick storage _kayne_var  = _routing_kayne_anderson_rudnick[msg.sender]; 
-           _kayne_var._company_address = msg.sender; 
-           _kayne_var._registered = true;
-           _kayne_var._kayne_anderson_rudnick_ID = 1122; 
-
-           return("Glad to have you on the Primerica utility software _kayne_anderson_rudnick");
-       }
-
-      function Primerica_Major_stockholder_Kayne_Anderson_Rudnick_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._kayne_anderson_rudnick) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-        Kayne_Anderson_Rudnick storage _kayne_var  = _routing_kayne_anderson_rudnick[msg.sender]; 
-        _kayne_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-  
-     struct Vanguard_Group {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 _vanguard_group_ID;  
-      }
-      mapping(address => Vanguard_Group) private routing_vanguard_group;
-
-       
-       
-       function Register_Vanguard_Group() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._vanguard_group) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         Vanguard_Group storage _vanguard_var  = routing_vanguard_group[msg.sender]; 
-           _vanguard_var._company_address = msg.sender; 
-           _vanguard_var._registered = true;
-           _vanguard_var._vanguard_group_ID = 3344; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_Vanguard_Group_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._vanguard_group) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-           Vanguard_Group storage _vanguard_var  = routing_vanguard_group[msg.sender];  
-        _vanguard_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-   
-     struct BlackRock {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 _blackrock_group_ID;  
-      }
-      mapping(address => BlackRock) private routing_black_rock;
-
-       
-       
-       function Register_BlackRock() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._blackrock) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         BlackRock storage _blackrock_var  = routing_black_rock[msg.sender]; 
-           _blackrock_var._company_address = msg.sender; 
-           _blackrock_var._registered = true;
-           _blackrock_var._blackrock_group_ID = 4455; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_BlackRock_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._blackrock) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-           BlackRock storage _blackrock_var  = routing_black_rock[msg.sender];  
-        _blackrock_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-         
-        struct FMR_Fidelity {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 fmr_fidelity_ID;  
-      }
-      mapping(address => FMR_Fidelity) private _routing_fmr_fidelity;
-
-       
-       
-       function Register_FMR_Fidelity() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._fmr_fidelity) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         FMR_Fidelity storage _fmr_fidelity_var  = _routing_fmr_fidelity[msg.sender]; 
-           _fmr_fidelity_var._company_address = msg.sender; 
-           _fmr_fidelity_var._registered = true;
-           _fmr_fidelity_var.fmr_fidelity_ID = 5566; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_FMR_Fidelity_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._fmr_fidelity) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-         FMR_Fidelity   storage _fmr_fidelity_var  = _routing_fmr_fidelity[msg.sender];  
-        _fmr_fidelity_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-
-       struct Bamco_Baron_Capital {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 bamco_baron_capital_ID;  
-      }
-      mapping(address => Bamco_Baron_Capital) private _routing_bamco_baron_capital;
-
-       
-       
-       function Register_Bamco_Baron_Capital() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._bamco_baron_capital) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         Bamco_Baron_Capital storage _bamco_baron_capital_var  = _routing_bamco_baron_capital[msg.sender]; 
-           _bamco_baron_capital_var._company_address = msg.sender; 
-           _bamco_baron_capital_var._registered = true;
-           _bamco_baron_capital_var.bamco_baron_capital_ID = 6677; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_Bamco_Baron_Capital_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._bamco_baron_capital) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-           Bamco_Baron_Capital storage _bamco_baron_var  = _routing_bamco_baron_capital[msg.sender];  
-        _bamco_baron_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-
- 
-       struct Burgundy_Asset_Management {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 burgundy_asset_management_ID;  
-      }
-      mapping(address => Burgundy_Asset_Management)private _routing_burgundy_asset_management;
-      
-       function Register_Burgundy_Asset_Management() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._burgundy_asset_management) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         Burgundy_Asset_Management storage _burgundy_asset_management_var  = _routing_burgundy_asset_management[msg.sender]; 
-           _burgundy_asset_management_var._company_address = msg.sender; 
-           _burgundy_asset_management_var._registered = true;
-           _burgundy_asset_management_var.burgundy_asset_management_ID = 7788; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_Burgundy_Asset_Management_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._burgundy_asset_management) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-          Burgundy_Asset_Management storage _burgundy_asset_management_var  = _routing_burgundy_asset_management[msg.sender];   
-        _burgundy_asset_management_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-
-         struct State_Street {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 state_street_ID;  
-      }
-      mapping(address => State_Street)private _routing_state_street;
-      
-       function Register_State_Street() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._state_street) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         State_Street storage _state_street_var  = _routing_state_street[msg.sender]; 
-           _state_street_var._company_address = msg.sender; 
-           _state_street_var._registered = true;
-           _state_street_var.state_street_ID = 8899; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_State_Street_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._state_street) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-            State_Street storage _state_street_var  = _routing_state_street[msg.sender];    
-        _state_street_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-
-         struct Brave_Warrior_Advisors {
-         address _company_address; 
-         bool _registered; 
-         string[] stock_database;
-         uint256 brave_warrior_advisors_ID;  
-      }
-      mapping(address => Brave_Warrior_Advisors)private _routing_brave_warrior_advisors;
-      
-       function Register_Brave_Warrior_Advisors() external returns(string memory) { 
-          if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-          if(msg.sender != _Stake_Holders._brave_warrior_advisors) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only");
-          }
-         
-         Brave_Warrior_Advisors storage _brave_warrior_advisors_var  = _routing_brave_warrior_advisors[msg.sender]; 
-           _brave_warrior_advisors_var._company_address = msg.sender; 
-           _brave_warrior_advisors_var._registered = true;
-           _brave_warrior_advisors_var.brave_warrior_advisors_ID = 9910; 
-
-           return("Glad to have you on the Primerica utility");
-       }
-
-      function Primerica_Major_stockholder_Brave_Warrior_Advisors_Database(string memory _stake_record_data) external returns(bool) {
-        if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-        if(msg.sender != _Stake_Holders._brave_warrior_advisors) { 
-                revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-          }
-
-            Brave_Warrior_Advisors storage _brave_warrior_var  = _routing_brave_warrior_advisors[msg.sender];    
-        _brave_warrior_var.stock_database.push(_stake_record_data);
-        
-        return(true); 
-      }
-      
-      struct Minimal_StockHolders { 
-         address minimal_SH_address;
-         uint256 _minimal_Registeration_ID; 
-         string[] _minimal_database; 
-         bool _minimal_registered; 
-      }
-
-     mapping(address => Minimal_StockHolders) private _routing_minimal_stockholders;
-
-      uint256 private _minimal_registeration_count; 
-       
-       event Primerica_Minimal_stockholders_Registeration_Emitted(address indexed _caller, uint256 indexed _registeration_Id);
-
-      function Primerica_Minimal_stockholders_Registeration(string memory _stake_record_data) external returns(string memory) { 
-         if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-           if(msg.sender == _routing_agent[msg.sender]._agent_address && msg.sender == _routing_recruit[msg.sender]._recruit_address) { 
-                 revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-           }
-            
-            _minimal_registeration_count++;
-
-            uint256 _minimal_id_value = _minimal_registeration_count;
-            
-             Minimal_StockHolders storage _minimal_stock_holders_var = _routing_minimal_stockholders[msg.sender]; 
-            _minimal_stock_holders_var.minimal_SH_address = msg.sender; 
-            _minimal_stock_holders_var._minimal_Registeration_ID = _minimal_id_value;  
-            _minimal_stock_holders_var._minimal_registered = true;
-
-            emit Primerica_Minimal_stockholders_Registeration_Emitted(msg.sender, _minimal_id_value);
-
-            return("We are glad to have you on primerica utility software minimal stake holder.");   
-      }
-
-      function Primerica_Minimal_stockholders_database() external returns(bool) {
-            if(address(0) == msg.sender) { 
-                revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-           if(msg.sender == _routing_agent[msg.sender]._agent_address && msg.sender == _routing_recruit[msg.sender]._recruit_address) { 
-                 revert Only_Stakeholders_(msg.sender, "This is for stake holders only ");
-           }
-            Minimal_StockHolders storage _minimal_stock_holders_var = _routing_minimal_stockholders[msg.sender]; 
-            _minimal_stock_holders_var._minimal_database.push();
-            return true; 
-      }
-      
-      
-     error Your_Just_Recruit(address _caller, string _notAllowed_msg);
-     error Position_InCompelete(address _caller, uint256 recruited_number_incomplete);
-     error Not_Life_License_Yet(bool _No_Life_License);
-
-
-      event Confirm_Spare_Time_Position_Emitted(string indexed _you_earn, address _caller);
-      function Confirm_Spare_Time_Position() external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-       if(_routing_recruit[msg.sender]._signed_up == false) { 
-                revert Mister_G__Not_Signed_UP_Yet(msg.sender, _routing_recruit[msg.sender]._signed_up); 
-           }
-       if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) { 
-              revert Mister_G__You_Have_Complete_pre_life_insurance(msg.sender, "You Have no pre_license");
-         }
-      
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.spare_time = true;  
-
-       emit Confirm_Spare_Time_Position_Emitted("No earns Yet for you", msg.sender);
-       return true; 
-      }
-
-       event Confirm_Agent_Parttime_Position_Emitted(string indexed _you_earn, address _caller);
-      function Confirm_Agent_Parttime_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 1) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.agent_part_time = true; 
-       _agent_var.sales_premium_data.push(_sales_premium_data);
-
-       emit Confirm_Agent_Parttime_Position_Emitted("You earn 15% pay for each sale you made", msg.sender);
-
-       return true; 
-      }
- 
-     event Confirm_Agent_FullTime_Position_Emitted(string indexed _you_earn, address _caller);
-
-      function Confirm_Agent_FullTime_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 1) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.agent_part_time = true; 
-       _agent_var.sales_premium_data.push(_sales_premium_data);
-        
-       emit Confirm_Agent_FullTime_Position_Emitted("You earn 30% pay for each sale you made", msg.sender);
-
-       return true; 
-      }
-
-      event Confirm_Senior_Representative_Position_Emitted(string indexed _you_earn, address _caller, bool _senior_representative);
-      function Confirm_Senior_Representative_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 2) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.senior_representative = true; 
-       _agent_var.sales_premium_data.push(_sales_premium_data);
-
-       emit Confirm_Senior_Representative_Position_Emitted("You earn 40% pay for each sale you made, note: repeat goal in 3 months you get extra $750", msg.sender, true);
-
-       return true; 
-      }
-
-      event Confirm_District_Leader_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
-      function Confirm_District_Leader_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 3) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.district_leader = true; 
-       _agent_var.sales_premium_data.push(_sales_premium_data); 
-       emit Confirm_District_Leader_Position_Emitted("You earn 50% pay for each sale you made", msg.sender, true);
-
-       return true; 
-      }
-
-      event Confirm_Division_Leader_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
-      function Confirm_Division_Leader_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 5) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.division_leader = true; 
-       _agent_var.two_direct_district_leaders = true; 
-       _agent_var.sales_premium_data.push(_sales_premium_data); 
-
-       emit Confirm_Division_Leader_Position_Emitted("You earn 60% pay for each sale you made", msg.sender, true);
-
-       return true; 
-      }
-
-      event Confirm_Regional_Leader_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
-      function Confirm_Regional_Leader_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 7) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.regional_leader = true; 
-       _agent_var.four_direct_district_leaders = true; 
-      _agent_var.sales_premium_data.push(_sales_premium_data); 
-
-       emit Confirm_Regional_Leader_Position_Emitted("You earn 70% pay for each sale you made", msg.sender, true);
-
-       return true; 
-      }
-      
-      error NO__Series_Twenty_Six_Licensed(bool _NO__Series_Twenty_Six_Licensed);
-
-      event Confirm_Regional_Vice_President_Position_Emitted(string indexed _you_earn, address _caller, bool _district_leader);
-      function Confirm_Regional_Vice_President_Position(string memory _sales_premium_data) external returns(bool) {
-       if(address(0) == msg.sender) { 
-            revert Mister_G__Invalid_Wallet_Address(msg.sender);       
-           }
-      if(_routing_agent[msg.sender]._registered == false) { 
-           revert Mister_G__You_Need_To_Registered(msg.sender, _routing_agent[msg.sender]._registered); 
-        }
-      if(_routing_recruit[msg.sender]._recruit_address == msg.sender) { 
-           revert Your_Just_Recruit(msg.sender, "Your only a recruit");
-      }
-      if(_track_recruiter[msg.sender] != msg.sender && _track_number_recruited[msg.sender] < 20) {
-           revert Position_InCompelete(msg.sender, _track_number_recruited[msg.sender]); 
-      }
-      if(_routing_tier_one[msg.sender]._licensed_Passed == false) {
-          revert Not_Life_License_Yet(_routing_tier_one[msg.sender]._licensed_Passed); 
-      }
-      if(_routing_tier_ten[msg.sender]._Series_Twenty_Six_Licensed_Senior_VP_Task == false) { 
-          revert NO__Series_Twenty_Six_Licensed(_routing_tier_ten[msg.sender]._Series_Twenty_Six_Licensed_Senior_VP_Task );
-      }
-
-       Agent storage _agent_var = _routing_agent[msg.sender]; 
-       _agent_var.regional_leader = true; 
-       _agent_var.six_direct_district_leaders = true; 
-     _agent_var.sales_premium_data.push(_sales_premium_data); 
-
-       emit Confirm_Regional_Vice_President_Position_Emitted("You earn 110% pay for each sale you made", msg.sender, true);
-
-       return true; 
-      }
 
       /* ------------------------------------------------------------------------------------------ */ 
    /* ---------------------------------------------------------------------------------------------- */
@@ -2502,9 +1318,7 @@ string[] private _verified_Primerica_license_Twenty_Six;
         if(_routing_agent[msg.sender]._agent_banned == true) {
             revert Mister_G__Agent_ON_BAN(msg.sender, _routing_agent[msg.sender]._agent_banned); 
         }
-        if(_routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state == false) {
-            revert Mister_G__You_Have_To_Get_Your_Pre_License(msg.sender, _routing_recruit[msg.sender]._pre_life_insurance_exam_certificate_completion_state); 
-        }
+       
 
 
       Register_Agents storage _register_agents_var = _routing_register_agents[msg.sender];
@@ -3110,19 +1924,8 @@ string[] private _verified_Primerica_license_Twenty_Six;
         return(_PRI_NFTs._recruit_nft);
   }
 
-  function  View_signed_up_recruits() view external returns(uint256) { 
-   if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(signed_up_recruits);
-  }
+  
 
-  function View_recruit_token_count() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_recruit_token_count);
-  }
 
    function View_INTERVAL() view external returns(uint256) { 
     if(msg.sender == address(0)) { 
@@ -3136,111 +1939,6 @@ string[] private _verified_Primerica_license_Twenty_Six;
            revert Mister_G__Invalid_Wallet_Address(msg.sender);
         }
         return(totalRatings);
-  }
-
-  function View_biennial_requested_addresses() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_biennial_requested_addresses.length);
-  }
-
-  function View_Annual_Leadership_requested_addresses() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_Annual_Leadership_requested_addresses.length);
-  }
-
-   function View_African_American_Leadership_requested_addresses() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_African_American_Leadership_requested_addresses.length);
-  }
-
-   function View_Recognition_Trips_Incentive_Events_requested_addresses() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_Recognition_Trips_Incentive_Events_requested_addresses.length);
-  }
-
-   function View_Kayne_Anderson_Rudnick_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_kayne_anderson_rudnick[msg.sender].stock_database);
-  }
-
-   function View_Vanguard_Group_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(routing_vanguard_group[msg.sender].stock_database);
-  }
-
-    function View_BlackRock_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(routing_black_rock[msg.sender].stock_database);
-  }
-
-   function View_FMR_Fidelity_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_fmr_fidelity[msg.sender].stock_database);
-  }
-  
-   function View_Bamco_Baron_Capital_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_bamco_baron_capital[msg.sender].stock_database);
-  }
-
-     function View_Burgundy_Asset_Management_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_burgundy_asset_management[msg.sender].stock_database);
-  }
-
-     function View_State_Street_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_state_street[msg.sender].stock_database);
-  }
-
-       function View_Brave_Warrior_Advisors_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_brave_warrior_advisors[msg.sender].stock_database);
-  }
-
-    function View_routing_minimal_stockholders_Database() view external returns(string[] memory) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_routing_minimal_stockholders[msg.sender]._minimal_database);
-  }
-
-     function View_minimal_registeration_count() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_minimal_registeration_count);
-  }
-
-   function View_recruit_Id_count() view external returns(uint256) { 
-    if(msg.sender == address(0)) { 
-           revert Mister_G__Invalid_Wallet_Address(msg.sender);
-        }
-        return(_recruit_Id_count);
   }
 
   function View_Debt_Free_Advocate_Agent_Nft_Image_Count() view external returns(uint256) { 
@@ -3370,5 +2068,5 @@ string[] private _verified_Primerica_license_Twenty_Six;
         return(_Series_Twenty_Six_Agent_NFT_Image_ID);
   }
 
-
 }
+
